@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+body {
+  font-family: 'oswald', sans-serif;
+}
+
+header {
+  background-image: linear-gradient(
+    rgba(0,0,0,0.7), 
+    rgba(0,0,0,0.7)), 
+    url(DSC_6918-scaled-870x611.jpg);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home {
+  color: aliceblue;
+  font-size: 25px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.home:hover {
+  color: darkcyan;
+}
+
+.menu .navbar ul li {
+  position: relative;
+  float: left;
+}
+
+.menu .navbar ul li a {
+  font-size: 18px;
+  padding: 20px;
+  color: rgb(248, 252, 255);
+  display: block;
+  font-weight: 600;
+}
+
+.menu .navbar ul li a:hover{
+  color: darkcyan;
+}
+
+#menu {
+  display: none;
+}
+
+.menu label {
+  cursor: pointer;
+  display: none;
+}
+
+.header-container h1 {
+  font-size: 75px;
+  line-height: 80px;
+  color: rgb(248, 252, 255);
+  text-transform: uppercase;
+  margin-bottom: 35px;
+  margin-left: 400px;
+  margin-top: 50px;
+}
+
+.header-container .navbar-2{
+  position: relative;
+  float: left;
+  text-align: center;
+  margin-left: 370px;
+}
+
+.header-container .navbar-2 a {
+  font-size: 18px;
+  padding: 20px;
+  color: rgb(248, 252, 255);
+  display: block;
+  font-weight: 600;
+  text-align: center;
+}
+
+

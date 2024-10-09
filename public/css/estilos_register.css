@@ -1,0 +1,23 @@
+.register_container {
+  min-width: 100vw;
+  height: 100vh;
+}
+
+.reg_izq {
+  background-image: url(../img/register_bar.jpg);
+  background-size: cover;
+  background-position: center;
+}
+.reg_izq_box {
+  background-color: #ececec;
+  height: 20vh;
+  width: 30vw;
+}
+
+.reg_der {
+  background: rgb(31, 31, 31) !important;
+}
+.reg_data {
+  width: 70%;
+}
+
