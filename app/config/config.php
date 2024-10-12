@@ -9,9 +9,9 @@
    define('RUTA_APP', dirname(dirname(__FILE__)));
    // Ruta url
 
-   define('RUTA_URL','http://localhost/appweb_caba_2c_2024/C-Grupo3/biblioteca_web');
+   define('RUTA_URL','http://localhost/AppWeb-biblioteca/AppWeb-Biblioteca');
 
    // Rutas que se usan para guardar imágenes
-   define('RUTA_AVATAR','/appweb_caba_2c_2024/C-Grupo3/biblioteca_web/public/img/avatar/');
+   define('RUTA_AVATAR','/AppWeb-biblioteca/AppWeb-Biblioteca/public/img/avatar/');
    define('NOMBRESITIO','Biblioteca UNLZ');
 ?>
