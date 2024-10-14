@@ -69,11 +69,14 @@
 
         /* Función que toma los datos del formulario, hace las verificaciones y los envía al modelo*/
         public function registrarUsuario(){
-         //   die('arranca la funcion registrar usuario');
-            if ($_SERVER['REQUEST_METHOD']=='POST'){
+        //die('arranca la funcion registrar usuario');//serve para depurar el código, deteniéndose en este punto y mostrando el texto "arranca la función registrar usuario".
+            if ($_SERVER['REQUEST_METHOD']=='POST'){//Verifica si el método de la solicitud HTTP es POST. Esto asegura que el formulario se haya enviado.
                 $nombre = $_POST['nombre'];
                 $apellido = $_POST['apellido'];
+                $dni = $_POST['dni'];
+                $numero = $_POST['numero'];
                 $email = $_POST['email'];
+                $usuario = $_POST['usuario'];
                 $pass = $_POST['password'];
                 $pass2 = $_POST['password2'];
                 $avatar = $_FILES['avatar']['name'];

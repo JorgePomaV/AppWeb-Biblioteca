@@ -1,8 +1,8 @@
 <?php require RUTA_APP . "/views/layout/landing/header.php";?>
 
 <div class="contenedor">
-    <form class="form" action="<?php echo RUTA_URL; ?>/AuthController/registrarUsuario/"
-    method="POST" enctype="multipart/form-data">
+<!--//$_POST['...']: Captura los datos enviados a través del formulario (como nombre, apellido, email, usuario, contraseñas, etc.).-->
+    <form class="form" action="<?php echo RUTA_URL; ?>/AuthController/registrarUsuario/" method="POST" enctype="multipart/form-data">
        <h2 class="h2-subtitulo">Crear una cuenta</h2>
        <div class="mb-3 div-flex">
           <label for="EntradaNombre" class="form-label">Nombre</label>
@@ -12,6 +12,10 @@
           <label for="EntradaApellido" class="form-label">Apellido</label>
           <input name="apellido" type="text" class="form-control" id="EntradaApellido">
        </div>
+       <div class="form-group">
+            <label for="formFile" class="form-label ">Avatar</label>
+            <input name="avatar" class="form-control" type="file" id="formFile">
+      </div>
        <div class="mb-3">
           <label for="EntradaDNI" class="form-label">DNI</label>
           <input name="dni" type="number" class="form-control" id="EntradaDNI" aria-describedby="ayudaDNI">
@@ -39,22 +43,8 @@
           <input name="password2" type="password" class="form-control" id="EntradaContraseñaRepetir" aria-describedby="ayudaContraseñaRepetir">
           <div id="ayudaContraseñaRepetir" class="form_text">Repita la contraseña</div>
        </div>
-       <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-       </div>
        <button type="submit" class="btn btn-primary">Crear cuenta</button>
     </form>
  </div>
 
 <?php require RUTA_APP . "/views/layout/landing/footer.php";?>
-
-<!--  
-                        <hr>
-                        <div class="text-center">
-                            <a class="small" href="<?php echo RUTA_URL;?>/AuthController/resetPassword">Olvidé mi comntraseña</a>
-                        </div>
-                        <div class="text-center">
-                            <a class="small" href="<?php echo RUTA_URL;?>/AuthController/login">Ya tenés cuenta?
-                                Ingresá</a>
-                        </div> -->
