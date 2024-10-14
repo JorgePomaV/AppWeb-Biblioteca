@@ -15,7 +15,7 @@
        <div class="mb-3">
           <label for="EntradaDNI" class="form-label">DNI</label>
           <input name="dni" type="number" class="form-control" id="EntradaDNI" aria-describedby="ayudaDNI">
-          <div id="ayudaDNI" class="form-text">Ingrese su DNI sin puntos.</div>
+          <div id="ayudaDNI" class="form_text">Ingrese su DNI sin puntos.</div>
        </div>
        <div class="mb-3">
           <label for="EntradaNumero" class="form-label">Numero de Celular</label>
@@ -24,7 +24,7 @@
        <div class="mb-3">
           <label for="EntradaEmail" class="form-label">Direccion de Email</label>
           <input name="email" type="email" class="form-control" id="EntradaEmail" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">Ingrese su correo electronico.</div>
+          <div id="emailHelp" class="form_text">Ingrese su correo electronico.</div>
        </div>
        <div class="mb-3">
           <label for="EntradaUsuario" class="form-label">Nombre de Usuario</label>
@@ -33,11 +33,11 @@
        <div class="mb-3 div-flex">
           <label for="EntradaContraseña" class="form-label">Contraseña</label>
           <input name="password" type="password" class="form-control" id="EntradaContraseña" aria-describedby="ayudaContraseña">
-          <div id="ayudaContraseña" class="form-text">Ingrese su contraseña</div>
+          <div id="ayudaContraseña" class="form_text">Ingrese su contraseña</div>
        </div>
        <div class="mb-3 div-flex">
           <input name="password2" type="password" class="form-control" id="EntradaContraseñaRepetir" aria-describedby="ayudaContraseñaRepetir">
-          <div id="ayudaContraseñaRepetir" class="form-text">Repita la contraseña</div>
+          <div id="ayudaContraseñaRepetir" class="form_text">Repita la contraseña</div>
        </div>
        <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">

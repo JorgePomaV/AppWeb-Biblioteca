@@ -34,6 +34,11 @@ button:hover{ /*sirve para cuando seleccionesmos en boton cambie de color de ton
     background-color: #4123d3;
 }
 
+.botton-index{
+    margin: 10px;
+    border-radius: 5px;
+}
+
 .container{ /*maximo ancho del contenido*/
     max-width: 1400px;
     margin: auto;
@@ -114,7 +119,8 @@ header a:hover{
     text-align: center;
     background-color: rgb(30,30,30);
     color: white;
-    height: 80vh;
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    height: 80vh; /* Ocupa el 100% de la altura visible del navegador */
 }
 
 #final h2{
@@ -145,6 +151,7 @@ footer .container{
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    height: 20vh;
 }
 
 @media (min-width: 850px){
@@ -162,6 +169,10 @@ footer .container{
         flex-direction: row;
         padding-bottom: 0;
         padding-right: 20px;
+    }
+    #hero{
+        width: 100%; /* Ocupa todo el ancho de la pantalla */
+        height: 100vh; /* Ocupa el 100% de la altura visible del navegador */
     }
 
     #hero h1{
@@ -190,5 +201,13 @@ footer .container{
     #hero{
         width: 100%; /* Ocupa todo el ancho de la pantalla */
         height: 100vh; /* Ocupa el 100% de la altura visible del navegador */
+    }
+    #final{
+        width: 100%; /* Ocupa todo el ancho de la pantalla */
+        height: 80vh; /* Ocupa el 100% de la altura visible del navegador */
+    }
+
+    footer .container{
+        height: 20vh;
     }
 }

@@ -1,20 +1,19 @@
 <?php require RUTA_APP .'/views/layout/landing/header.php';?>
 
-<body>
-    <header>
+<header>
         <div class="container">
             <p class="logo">Biblioteca UNLZ</p>
             <nav>
+                <a href="#hero">Inicio</a>
                 <a href="#seccion-libros">Nuestros Libros</a>
                 <a href="#final">Mas Informacion</a>
             </nav>
         </div>
     </header>
-
     <section id="hero">
         <h1>Biblioteca<br>UNLZ</h1>
-        <button type="botton" onclick="window.location.href='<?php echo RUTA_URL; ?>/AuthController/login'">Iniciar Sesion!</button>
-        <button type="button" onclick="window.location.href='<?php echo RUTA_URL; ?>/AuthController/register'">Crear cuenta!</button>
+        <button class="botton-index" type="botton" onclick="window.location.href='<?php echo RUTA_URL; ?>/AuthController/login'">Iniciar Sesion!</button>
+        <button class="botton-index" type="button" onclick="window.location.href='<?php echo RUTA_URL; ?>/AuthController/register'">Crear cuenta!</button>
     </section>
 
     </section>
