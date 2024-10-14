@@ -1,4 +1,4 @@
-<footer class="text-center">
+<!--<footer class="text-center">
         <div class="container p-4">
             <section class="mb-4">
                 <a class="btn btn-outline-white btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
@@ -46,4 +46,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
 </body>
 
-</html>
+</html>-->
