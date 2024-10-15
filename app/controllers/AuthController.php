@@ -88,7 +88,8 @@
                 //$ubi: Guarda la ruta completa donde se almacenarán las imágenes de avatar, combinando la ruta raíz del servidor y la constante RUTA_AVATAR.
                 $ubi = $_SERVER['DOCUMENT_ROOT'] . RUTA_AVATAR;
 
-                if ($avatar != ''){//Verifica si se ha cargado un archivo de avatar.
+                ////Verifica si se ha cargado un archivo de avatar.
+                if ($avatar != ''){
                     if($image_size <= 10000000){//Verifica si el tamaño del archivo de imagen es menor o igual a 10MB (10,000,000 bytes).
                         if ($image_type == 'image/jpg' || $image_type == 'image/jpeg' || $image_type == 'image/png')//Comprueba el tipo de imagen.
                         // Mueve el archivo subido a la ubicación especificada.
@@ -128,16 +129,23 @@
                         'apellido' =>$apellido,
                         'avatar' => $avatar,
                         'email' => $email,
+                        'dni' => $dni,
+                        'usuario'=> $usuario,
+                        'celular' => $numero,
                         'pass' => $pass,
                         'pass2' => $pass2
                     ];
+                    //llama al modelo authModel para buscar si ya existe un usuario con el mismo email.
                     $auth = $this->authModel->buscar_por_mail($data);
 
+                    
+                    //empty():Esta función devuelve true si la variable es considerada vacía y false en caso contrario.
                     if (empty($auth)){
-                        if($this->authModel->crear_usuario($data)){
+                        if($this->authModel->crear_usuario($data)){//crear_usuario: retorna un bool
                             $data = [
                                 'error_login'=>'',
                             ];
+                            //redirige al usuario a la vista de inicio de sesión. Si falla, detiene la ejecución y muestra un error.
                             $this->view('pages/auth/login',$data);
                         }else{
                             die("NO SE PUDO CREAR EL USUARIO");
@@ -154,6 +162,7 @@
                         'error_tipo' =>'',
                         'error_megas'=>'',
                     ];
+                    //Si las contraseñas no coinciden, se genera un mensaje de error y se muestra la vista de registro nuevamente.
                     $this->view('pages/auth/register',$data);
                 }
         
