@@ -24,16 +24,7 @@
           <input name="avatar" class="form-control" type="file" id="formFile">
           <div id="ayudaTamañoArchivo" class="form_text">Tamaño del archivo de imagen menor o igual a 10MB.</div>
          </div>
-         <?php 
-              if ($data['error_tipo']!=''){
-                  echo $data['error_tipo'];
-              }
-          ?>
-          <?php 
-              if ($data['error_megas']!=''){
-                  echo $data['error_megas'];
-              }
-          ?>
+        
        <div class="mb-3">
           <label for="EntradaNumero" class="form-label">Numero de Celular</label>
           <input name="numero" type="number" class="form-control" id="EntradaNumero">
@@ -60,12 +51,7 @@
                <div id="ayudaContraseña2" class="form_text">Repita la contraseña.</div>
             </div>
        </div>
-       <?php 
-                 if ($data['error_pass']!=''){
-                     echo $data['error_pass'];
-                 }
-             ?>
-       
+      
        <button type="submit" class="btn btn-primary">Crear cuenta</button>
     </form>
  </div>

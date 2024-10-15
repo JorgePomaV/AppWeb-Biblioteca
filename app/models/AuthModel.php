@@ -17,21 +17,26 @@ class AuthModel {
 		$this->db->query("INSERT INTO usuario
                           (Nombre, Apellido, Avatar, Email, Celular, created_at) 
 						  VALUES 
-						  (:nombre, :apellido, :avatar, :email, :numero, aes_encrypt(:pass,:keyword), CURRENT_TIMESTAMP);
-						  INSERT INTO autenticasion
-						  (Contraseña,Dni) VALUES 
-						  (:pass,:dni)");
+						  (:nombre, :apellido, :avatar, :email, :numero, aes_encrypt(:pass,:keyword), CURRENT_TIMESTAMP)");
         $this->db->bind('nombre', $data['nombre']);
         $this->db->bind('apellido', $data['apellido']);
         $this->db->bind('avatar', $data['avatar']);                  
 		$this->db->bind('email', $data['email']);
-		$this->db->bind('pass', $data['pass']);
-		$this->db->bind('dni', $data['dni']);
 		$this->db->bind('numero', $data['numero']);
 		$this->db->bind('keyword', $keyw);
 		//
 		if ($this->db->execute()) {
-			return true;
+			$this->db->query("INSERT INTO autenticasion
+						  (Contraseña,Dni) VALUES 
+						  (:pass,:dni)");
+			$this->db->bind('pass', $data['pass']);
+			$this->db->bind('dni', $data['dni']);
+			
+			if ($this->db->execute()) {
+				return true; // Ambas consultas tuvieron éxito
+			} else {
+				return false; // Falló la segunda consulta
+			}
 		} else {
 			return false;
 		}
