@@ -15,22 +15,23 @@ class AuthModel {
 		
 		$keyw = "keyword"; //Define una variable $keyw y le asigna el valor de la cadena "keyword", que se utilizará como clave para encriptar la contraseña.
 		$this->db->query("INSERT INTO usuario
-                          (Nombre, Apellido, Avatar, Email, Celular, created_at) 
+                          (Nombre, Apellido, Avatar, Email, Celular) 
 						  VALUES 
-						  (:nombre, :apellido, :avatar, :email, :numero, aes_encrypt(:pass,:keyword), CURRENT_TIMESTAMP)");
+						  (:nombre, :apellido, :avatar, :email, :celular)");
         $this->db->bind('nombre', $data['nombre']);
         $this->db->bind('apellido', $data['apellido']);
         $this->db->bind('avatar', $data['avatar']);                  
 		$this->db->bind('email', $data['email']);
-		$this->db->bind('numero', $data['numero']);
-		$this->db->bind('keyword', $keyw);
+		$this->db->bind('celular', $data['celular']);
+
 		//
 		if ($this->db->execute()) {
-			$this->db->query("INSERT INTO autenticasion
+			$this->db->query("INSERT INTO autenticacion
 						  (Contraseña,Dni) VALUES 
-						  (:pass,:dni)");
+						  ( aes_encrypt(:pass,:keyword),:dni)");
 			$this->db->bind('pass', $data['pass']);
 			$this->db->bind('dni', $data['dni']);
+			$this->db->bind('keyword', $keyw);
 			
 			if ($this->db->execute()) {
 				return true; // Ambas consultas tuvieron éxito
@@ -48,10 +49,9 @@ class AuthModel {
 	{
 		//Se ejecuta una consulta SQL en la base de datos utilizando el objeto $db
 		//La contraseña (pass) es desencriptada usando la función aes_decrypt con una clave ('keyword'), y se le da un alias pass en el resultado.
-		$this->db->query("SELECT id_usuario, Nombre, Email, avatar, aes_decrypt(pass, 'keyword') AS pass 
+		$this->db->query("SELECT id_usuario, Nombre, Email, Avatar 
 							  FROM usuario
-							  WHERE usuario.email =:email
-							  AND deleted_at IS NULL");//Añade otra condición para asegurar que solo se seleccionen usuarios que no han sido eliminados (es decir, aquellos cuyo campo deleted_at es nulo).
+							  WHERE usuario.email =:email");//Añade otra condición para asegurar que solo se seleccionen usuarios que no han sido eliminados (es decir, aquellos cuyo campo deleted_at es nulo).
 		// Vincula el valor del correo electrónico del arreglo $data a la consulta preparada, reemplazando :email con el valor correspondiente. Esto es una medida de seguridad para prevenir inyecciones SQL.
 		$this->db->bind('email', $data['email']);
 		

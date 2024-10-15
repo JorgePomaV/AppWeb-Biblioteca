@@ -27,7 +27,7 @@
         
        <div class="mb-3">
           <label for="EntradaNumero" class="form-label">Numero de Celular</label>
-          <input name="numero" type="number" class="form-control" id="EntradaNumero">
+          <input name="celular" type="text" class="form-control" id="EntradaNumero">
        </div>
        <div class="mb-3">
           <label for="EntradaEmail" class="form-label">Direccion de Email</label>

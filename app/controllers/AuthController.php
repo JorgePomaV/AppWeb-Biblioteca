@@ -76,7 +76,7 @@
                 $nombre = $_POST['nombre'];
                 $apellido = $_POST['apellido'];
                 $dni = $_POST['dni'];
-                $numero = $_POST['numero'];
+                $celular = $_POST['celular'];
                 $email = $_POST['email'];
                 $usuario = $_POST['usuario'];
                 $pass = $_POST['password'];
@@ -91,7 +91,7 @@
                 ////Verifica si se ha cargado un archivo de avatar.
                 if ($avatar != ''){
                     if($image_size <= 10000000){//Verifica si el tamaño del archivo de imagen es menor o igual a 10MB (10,000,000 bytes).
-                        if ($image_type == 'image/jpg' || $image_type == 'image/jpeg' || $image_type == 'image/png')//Comprueba el tipo de imagen.
+                        if ($image_type == 'image/jpg' || $image_type == 'image/jpeg' || $image_type == 'image/png'){//Comprueba el tipo de imagen.
                         // Mueve el archivo subido a la ubicación especificada.
                             move_uploaded_file($_FILES['avatar']['tmp_name'], $ubi . $avatar);
                         }else{
@@ -131,7 +131,7 @@
                         'email' => $email,
                         'dni' => $dni,
                         'usuario'=> $usuario,
-                        'celular' => $numero,
+                        'celular' => $celular,
                         'pass' => $pass,
                         'pass2' => $pass2
                     ];
@@ -166,6 +166,7 @@
                     $this->view('pages/auth/register',$data);
                 }
         
+            }
         }
     
         public function resetPassword(){
