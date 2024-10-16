@@ -7,8 +7,8 @@
         <h1 class="pb-4 fw-medium">Inicie Sesión</h1>
         <form id="loginForm" class="user" action="<?php echo RUTA_URL; ?>/AuthController/loginUsuario/" method="POST">
           <div class="form-group">
-            <label for="exampleInputEmail" class="form-label fs-5">Correo electrónico</label>
-            <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp">
+            <label for="exampleInputDni" class="form-label fs-5">DNI</label>
+            <input name="dni" type="text" class="form-control form-control-user" id="exampleInputDni" aria-describedby="dnilHelp">
           </div>
     
           <div class="form-group">

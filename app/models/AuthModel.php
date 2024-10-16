@@ -45,6 +45,17 @@ class AuthModel {
 
     	/* Método para buscar el mail y la contraseña para comprobar si existe y poder loguear*/
 
+	public function buscar_por_dni($data){
+		$this->db->query("SELECT Dni, aes_decrypt(Contraseña, 'keyword') AS pass  FROM autenticacion WHERE autenticacion.Dni = :dni");
+		$this->db->bind('dni', $data['dni']);
+
+		$result = $this->db->register();
+		return $result;
+	}
+
+
+
+
 	public function buscar_por_mail($data)
 	{
 		//Se ejecuta una consulta SQL en la base de datos utilizando el objeto $db

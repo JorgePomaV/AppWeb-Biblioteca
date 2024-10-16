@@ -20,16 +20,52 @@
             
         }
 
+
+        public function loginUsuario(){
+               // Sanitización de datos
+                $data = [
+                    'dni' => htmlspecialchars($_POST['dni'], ENT_QUOTES, 'UTF-8'),
+                ];
+
+
+            $usuario = $this->authModel->buscar_por_dni($data);
+            if($usuario){
+                if($_POST['password'] == $usuario->pass){
+                    $this->view('pages/dashboard/dashboard',$data);
+                }else{
+                    $data = [
+                        'error_login' => '<div class="alert alert-danger" role="alert">
+                        Usuario o contraseña incorrectos paso.
+                      </div>',
+                    ];
+                    $this->view('pages/auth/login',$data);
+                }        
+            }else{
+                $data = [
+                    'error_login' => '<div class="alert alert-danger" role="alert">
+                    Usuario o contraseña incorrectos.
+                  </div>',
+                ];
+                $this->view('pages/auth/login',$data);
+            }
+        }
+
         /* Función que verifica los datos del usuario y 
         redirige al panel del usuario*/
-        public function loginUsuario(){
+       /* public function loginUsuario(){
+        //Aquí se crea un arreglo $data que contiene el correo que el usuario ha enviado a través de un formulario. Se obtiene con $_POST['email'], que es el método que captura los datos enviados por el formulario a través de una solicitud POST.
             $data = [
                 'email' => $_POST['email'],
                 
             ];
             $usuario = $this->authModel->buscar_por_mail($data);
-            if($usuario){
+            if($usuario){//Se verifica si la variable $usuario contiene información (lo que significa que se encontró un usuario con el correo proporcionado).
                 if( $_POST['password']==$usuario->pass){
+                    // se crean varias variables de sesión ($_SESSION) que contienen los datos del usuario:
+                    //id: el identificador del usuario.
+                    //nombre: el nombre del usuario.
+                    //avatar: la imagen de perfil del usuario.
+                    //Estas variables de sesión permiten que el usuario permanezca autenticado mientras navega por el sitio.
                     $_SESSION['id']=$usuario->id;
                     $_SESSION['nombre']=$usuario->nombre;
                     $_SESSION['avatar']=$usuario->avatar;
@@ -56,7 +92,7 @@
                 ];
                 $this->view('pages/auth/login',$data);
             }
-        }
+        }*/
 
         /* Función para llamar a la vista registro con blanqueo de errores*/
         public function register(){

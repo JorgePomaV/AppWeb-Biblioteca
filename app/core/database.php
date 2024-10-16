@@ -70,7 +70,10 @@
 
       //Obtener un único register
       public function register(){
+         //lama al método $this->execute(), que es responsable de ejecutar la consulta SQL que se ha preparado previamente (con query()).
          $this->execute();
+         //fetch(PDO::FETCH_OBJ) recupera la siguiente fila del resultado de la consulta y la devuelve como un objeto.
+         //La función devuelve el objeto resultante, que contendrá los datos del usuario (o null si no hay más filas disponibles en el resultado).
          return $this->stmt->fetch(PDO::FETCH_OBJ);
       }
 
