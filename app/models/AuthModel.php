@@ -26,11 +26,13 @@ class AuthModel {
 
 		//
 		if ($this->db->execute()) {
+			$id_usuario = $this->db->lastId();
 			$this->db->query("INSERT INTO autenticacion
-						  (Contraseña,Dni) VALUES 
-						  ( aes_encrypt(:pass,:keyword),:dni)");
+						  (usuario_id, Contraseña,Dni) VALUES 
+						  ( :id_usuario, aes_encrypt(:pass,:keyword),:dni)");
 			$this->db->bind('pass', $data['pass']);
 			$this->db->bind('dni', $data['dni']);
+			$this->db->bind('id_usuario', $id_usuario);
 			$this->db->bind('keyword', $keyw);
 			
 			if ($this->db->execute()) {

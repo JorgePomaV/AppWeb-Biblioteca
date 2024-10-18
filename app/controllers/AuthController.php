@@ -23,6 +23,7 @@
 
         public function loginUsuario(){
                // Sanitización de datos
+               //Aquí se crea un arreglo $data que contiene el correo que el usuario ha enviado a través de un formulario. Se obtiene con $_POST['email'], que es el método que captura los datos enviados por el formulario a través de una solicitud POST.
                 $data = [
                     'dni' => htmlspecialchars($_POST['dni'], ENT_QUOTES, 'UTF-8'),
                 ];
@@ -31,6 +32,7 @@
             $usuario = $this->authModel->buscar_por_dni($data);
             if($usuario){
                 if($_POST['password'] == $usuario->pass){
+                    //falta agregar tareas,
                     $this->view('pages/dashboard/dashboard',$data);
                 }else{
                     $data = [
@@ -124,7 +126,7 @@
                 //$ubi: Guarda la ruta completa donde se almacenarán las imágenes de avatar, combinando la ruta raíz del servidor y la constante RUTA_AVATAR.
                 $ubi = $_SERVER['DOCUMENT_ROOT'] . RUTA_AVATAR;
 
-                ////Verifica si se ha cargado un archivo de avatar.
+                //Verifica si se ha cargado un archivo de avatar.
                 if ($avatar != ''){
                     if($image_size <= 10000000){//Verifica si el tamaño del archivo de imagen es menor o igual a 10MB (10,000,000 bytes).
                         if ($image_type == 'image/jpg' || $image_type == 'image/jpeg' || $image_type == 'image/png'){//Comprueba el tipo de imagen.
@@ -173,19 +175,25 @@
                     ];
                     //llama al modelo authModel para buscar si ya existe un usuario con el mismo email.
                     $auth = $this->authModel->buscar_por_mail($data);
-
+                    $auth2 = $this->authModel->buscar_por_dni($data);
                     
                     //empty():Esta función devuelve true si la variable es considerada vacía y false en caso contrario.
                     if (empty($auth)){
-                        if($this->authModel->crear_usuario($data)){//crear_usuario: retorna un bool
-                            $data = [
-                                'error_login'=>'',
-                            ];
-                            //redirige al usuario a la vista de inicio de sesión. Si falla, detiene la ejecución y muestra un error.
-                            $this->view('pages/auth/login',$data);
+                        if(empty($auth2)){
+                            if($this->authModel->crear_usuario($data)){//crear_usuario: retorna un bool
+                                $data = [
+                                    'error_login'=>'',
+                                ];
+                                //redirige al usuario a la vista de inicio de sesión. Si falla, detiene la ejecución y muestra un error.
+                                $this->view('pages/auth/login',$data);
+                            }else{
+                                //La función die() en PHP se utiliza para detener la ejecución del script inmediatamente. Cuando se llama a die(), el programa termina en ese punto, y opcionalmente puedes enviar un mensaje de salida.
+                                die("NO SE PUDO CREAR EL USUARIO");
+                            }
                         }else{
-                            die("NO SE PUDO CREAR EL USUARIO");
+                            die("Ya existe una cuenta creada con ese dni");
                         }
+                        
                     }else{
                         die("Ya existe una cuenta creada con ese email");
                     }
