@@ -23,7 +23,7 @@
 
         public function loginUsuario(){
                // Sanitización de datos
-               //Aquí se crea un arreglo $data que contiene el correo que el usuario ha enviado a través de un formulario. Se obtiene con $_POST['email'], que es el método que captura los datos enviados por el formulario a través de una solicitud POST.
+               //Aquí se crea un arreglo $data que contiene el dni que el usuario ha enviado a través de un formulario. Se obtiene con $_POST['dni'], que es el método que captura los datos enviados por el formulario a través de una solicitud POST.
                 $data = [
                     'dni' => htmlspecialchars($_POST['dni'], ENT_QUOTES, 'UTF-8'),
                 ];
