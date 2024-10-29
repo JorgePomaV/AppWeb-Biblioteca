@@ -30,19 +30,20 @@
 
 
             $usuario = $this->authModel->buscar_por_dni($data);
+            //Este if verifica si $usuario no es null o false.
             if($usuario){
                 if($_POST['password'] == $usuario->pass){
                     //falta agregar tareas,
                     //Es el array global que PHP usa para almacenar datos de la sesión del usuario. Puedes guardar cualquier dato en $_SESSION, como el ID de usuario, nombre, avatar, etc., después de que el usuario haya iniciado sesión.
-                    $_SESSION['id']=$usuario->id;
-                    $_SESSION['nombre']=$usuario->nombre;
-                    $_SESSION['avatar']=$usuario->avatar;
-                    $this->tareaModel->expirarTareas();
-                    $data = [
+                    $_SESSION['id']=$usuario->usuario_id;
+                    $_SESSION['nombre']=$usuario->Nombre;
+                    $_SESSION['avatar']=$usuario->Avatar;
+                    /*  $this->tareaModel->expirarTareas();
+                  $data = [
                         'tareas' => $this->tareaModel->buscarTareas(0),
                         'estados' => $this->estadoModel->buscar_estados(),
-                    ];
-                    $this->view('pages/dashboard/dashboard',$data);
+                    ];*/
+                    $this->view('pages/dashboard/dashboard');
                 }else{
                     $data = [
                         'error_login' => '<div class="alert alert-danger" role="alert">
