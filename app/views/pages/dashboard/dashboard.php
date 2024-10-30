@@ -64,20 +64,18 @@
                                     <th>Año de Edición</th>
                                     <th>Cantidad</th>
                                     <th>Categoría ID</th>
-                                    <th>Usuario ID</th>
                                     <th class="text-center" colspan="2">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!empty($data['libros'])):?>
-                                <?php foreach($data['libros'] as $libro):?>
+                                <?php if (!empty($data['libro'])):?>
+                                <?php foreach($data['libro'] as $libro):?>
                                 <tr>
                                     <td><?php echo $libro->Titulo;?></td>
                                     <td><?php echo $libro->Editorial;?></td>
                                     <td><?php echo $libro->AñoEdicion;?></td>
                                     <td><?php echo $libro->Cantidad;?></td>
                                     <td><?php echo $libro->categoria_id;?></td>
-                                    <td><?php echo $libro->usuario_id;?></td>
                                     <td><span class="text-info"><a
                                                 href="<?php echo RUTA_URL;?>/LibroController/editar/<?php echo $libro->id_libro;?>"
                                                 class="btn btn-outline-success btn-sm"><i
