@@ -1,5 +1,5 @@
-<!-- views/layout/libros/content.php -->
-<?php if ($action == 'index'): ?>
+<!-- views/pages/libro/content.php -->
+<?php if ($data['action'] == 'index'): ?>
     <h2>Listado de Libros</h2>
     <a href="<?php echo RUTA_URL; ?>/libro/crear" class="btn btn-primary">Agregar Libro</a>
     <table class="table table-bordered">
@@ -26,7 +26,7 @@
                         <td><?php echo $libro->id_libro; ?></td>
                         <td><?php echo $libro->Titulo; ?></td>
                         <td><?php echo $libro->Editorial; ?></td>
-                        <td><?php echo $libro->AñoEdicion; ?></td> <!-- Asegúrate de que sea un año -->
+                        <td><?php echo $libro->AñoEdicion; ?></td>
                         <td><?php echo $libro->Cantidad; ?></td>
                         <td><?php echo $libro->categoria_id; ?></td>
                         <td><?php echo $libro->usuario_id; ?></td>
@@ -41,7 +41,7 @@
         </tbody>
     </table>
 
-<?php elseif ($action == 'crear'): ?>
+<?php elseif ($data['action'] == 'crear'): ?>
     <h2>Agregar Nuevo Libro</h2>
     <form action="<?php echo RUTA_URL; ?>/libro/agregar" method="post">
         <label for="Titulo">Título:</label>
@@ -65,7 +65,7 @@
         <button type="submit">Guardar Libro</button>
     </form>
 
-<?php elseif ($action == 'detalle'): ?>
+<?php elseif ($data['action'] == 'detalle'): ?>
     <h2>Detalle del Libro</h2>
     <p><strong>Título:</strong> <?php echo $data['libro']->Titulo; ?></p>
     <p><strong>Editorial:</strong> <?php echo $data['libro']->Editorial; ?></p>
@@ -75,9 +75,9 @@
     <p><strong>Usuario ID:</strong> <?php echo $data['libro']->usuario_id; ?></p>
     <a href="<?php echo RUTA_URL; ?>/libro" class="btn btn-primary">Volver</a>
 
-<?php elseif ($action == 'editar'): ?>
+<?php elseif ($data['action'] == 'editar'): ?>
     <h2>Editar Libro</h2>
-    <form action="<?php echo RUTA_URL; ?>/libro/editar/<?php echo $libro->id_libro; ?>" method="post">
+    <form action="<?php echo RUTA_URL; ?>/libro/editar/<?php echo $data['libro']->id_libro; ?>" method="post">
         <label for="Titulo">Título:</label>
         <input type="text" name="Titulo" value="<?php echo $data['libro']->Titulo; ?>" required>
 
@@ -88,7 +88,7 @@
         <input type="date" name="AñoEdicion" value="<?php echo $data['libro']->AñoEdicion; ?>">
 
         <label for="Cantidad">Cantidad:</label>
-        <input type="number" name="Cantidad" min="1" value="<?php echo $data['libro']->Cantidad; ?>">
+        <input type="number" name="Cantidad" value="<?php echo $data['libro']->Cantidad; ?>" min="1">
 
         <label for="categoria_id">Categoría ID:</label>
         <input type="number" name="categoria_id" value="<?php echo $data['libro']->categoria_id; ?>">
@@ -99,11 +99,11 @@
         <button type="submit">Actualizar Libro</button>
     </form>
 
-<?php elseif ($action == 'eliminar'): ?>
+<?php elseif ($data['action'] == 'eliminar'): ?>
     <h2>Eliminar Libro</h2>
-    <p>¿Estás seguro de que deseas eliminar el libro "<strong><?php echo $data['libro']->Titulo; ?></strong>"?</p>
-    <a href="<?php echo RUTA_URL; ?>/libro/eliminarConfirmado/<?php echo $data['libro']->id_libro; ?>" class="btn btn-danger">Eliminar</a>
-    <a href="<?php echo RUTA_URL; ?>/libro" class="btn btn-secondary">Cancelar</a>
-
-<?php endif; ?>    
-<?php require RUTA_APP . '/views/layout/admin/footer.php'; ?>
+    <p>¿Estás seguro de que deseas eliminar el libro "<?php echo $data['libro']->Titulo; ?>"?</p>
+    <form action="<?php echo RUTA_URL; ?>/libro/eliminar/<?php echo $data['libro']->id_libro; ?>" method="post">
+        <button type="submit">Confirmar Eliminación</button>
+    </form>
+    <a href="<?php echo RUTA_URL; ?>/libro" class="btn btn-primary">Cancelar</a>
+<?php endif; ?>

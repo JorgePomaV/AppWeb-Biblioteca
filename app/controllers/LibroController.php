@@ -13,6 +13,7 @@ class LibroController extends BaseController {
             $data = [
                 'libros' => $libros,
                 'vista' => 'index',
+                'action' => 'index' // Agregar esta línea
             ];
             $this->view('pages/libro/layout', $data);
         } catch (Exception $e) {
@@ -20,6 +21,7 @@ class LibroController extends BaseController {
             $data = [
                 'error' => "Hubo un error al obtener los libros.",
                 'vista' => 'index',
+                'action' => 'index' // Agregar esta línea
             ];
             $this->view('pages/libro/layout', $data);
         }
@@ -30,6 +32,7 @@ class LibroController extends BaseController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $this->validarDatos($_POST);
             $data['vista'] = 'crear';
+            $data['action'] = 'crear'; // Agregar esta línea
             if ($data['error']) {
                 $this->view('pages/libro/layout', $data);
             } else {
@@ -43,6 +46,7 @@ class LibroController extends BaseController {
         } else {
             $data = [
                 'vista' => 'crear',
+                'action' => 'crear' // Agregar esta línea
             ];
             $this->view('pages/libro/layout', $data);
         }
@@ -54,6 +58,7 @@ class LibroController extends BaseController {
             $data = $this->validarDatos($_POST);
             $data['vista'] = 'editar';
             $data['libro'] = $this->libroModel->obtenerPorId($id);
+            $data['action'] = 'editar'; // Agregar esta línea
             if ($data['error']) {
                 $this->view('pages/libro/layout', $data);
             } else {
@@ -68,6 +73,7 @@ class LibroController extends BaseController {
             $data = [
                 'libro' => $this->libroModel->obtenerPorId($id),
                 'vista' => 'editar',
+                'action' => 'editar' // Agregar esta línea
             ];
             $this->view('pages/libro/layout', $data);
         }
@@ -78,6 +84,7 @@ class LibroController extends BaseController {
         $data = [
             'libro' => $this->libroModel->obtenerPorId($id),
             'vista' => 'detalles',
+            'action' => 'detalle' // Agregar esta línea
         ];
         $this->view('pages/libro/layout', $data);
     }
@@ -91,6 +98,7 @@ class LibroController extends BaseController {
                 'error' => "Hubo un error al eliminar el libro.",
                 'libros' => $this->libroModel->obtenerTodos(),
                 'vista' => 'eliminar',
+                'action' => 'eliminar' // Agregar esta línea
             ];
             $this->view('pages/libro/layout', $data);
         }
