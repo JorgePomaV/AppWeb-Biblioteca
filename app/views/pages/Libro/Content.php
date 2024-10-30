@@ -11,7 +11,6 @@
                 <th>Año de Edición</th>
                 <th>Cantidad</th>
                 <th>Categoría</th>
-                <th>Usuario</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -29,7 +28,6 @@
                         <td><?php echo $libro->AñoEdicion; ?></td>
                         <td><?php echo $libro->Cantidad; ?></td>
                         <td><?php echo $libro->categoria_id; ?></td>
-                        <td><?php echo $libro->usuario_id; ?></td>
                         <td>
                             <a href="<?php echo RUTA_URL; ?>/libro/detalles/<?php echo $libro->id_libro; ?>">Detalles</a> |
                             <a href="<?php echo RUTA_URL; ?>/libro/editar/<?php echo $libro->id_libro; ?>">Editar</a> |
@@ -43,7 +41,7 @@
 
 <?php elseif ($data['action'] == 'crear'): ?>
     <h2>Agregar Nuevo Libro</h2>
-    <form action="<?php echo RUTA_URL; ?>/libro/agregar" method="post">
+    <form action="<?php echo RUTA_URL; ?>/libro/crear" method="post">
         <label for="Titulo">Título:</label>
         <input type="text" name="Titulo" required>
 
@@ -59,9 +57,6 @@
         <label for="categoria_id">Categoría ID:</label>
         <input type="number" name="categoria_id">
 
-        <label for="usuario_id">Usuario ID:</label>
-        <input type="number" name="usuario_id">
-
         <button type="submit">Guardar Libro</button>
     </form>
 
@@ -72,7 +67,6 @@
     <p><strong>Año de Edición:</strong> <?php echo date('Y', strtotime($data['libro']->AñoEdicion)); ?></p>
     <p><strong>Cantidad:</strong> <?php echo $data['libro']->Cantidad; ?></p>
     <p><strong>Categoría ID:</strong> <?php echo $data['libro']->categoria_id; ?></p>
-    <p><strong>Usuario ID:</strong> <?php echo $data['libro']->usuario_id; ?></p>
     <a href="<?php echo RUTA_URL; ?>/libro" class="btn btn-primary">Volver</a>
 
 <?php elseif ($data['action'] == 'editar'): ?>
@@ -92,9 +86,6 @@
 
         <label for="categoria_id">Categoría ID:</label>
         <input type="number" name="categoria_id" value="<?php echo $data['libro']->categoria_id; ?>">
-
-        <label for="usuario_id">Usuario ID:</label>
-        <input type="number" name="usuario_id" value="<?php echo $data['libro']->usuario_id; ?>">
 
         <button type="submit">Actualizar Libro</button>
     </form>
