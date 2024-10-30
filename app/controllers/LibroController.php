@@ -29,13 +29,6 @@ class LibroController extends BaseController {
 
     // Mostrar formulario de creación de libros
     public function crear() {
-        // Verificar si el usuario está autenticado
-        if (!isset($_SESSION['usuario_id'])) {
-            // Redirigir al landing si no está autenticado
-            header('Location: ' . RUTA_URL . '/landing');
-            exit();
-        }
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $this->validarDatos($_POST);
             $data['vista'] = 'crear';
