@@ -1,12 +1,10 @@
 <?php
     class AuthController extends BaseController{
         private $authModel;
-        private $tareaModel;
-        private $estadoModel;
+        private $libroModel;
         public function __construct(){
             $this->authModel=$this->model('AuthModel');
-            $this->tareaModel=$this->model('TareaModel');
-            $this->estadoModel= $this->model('EstadoModel');
+            $this->libroModel=$this->model('LibroModel');
         }
         
         /* Función para llamar a la vista login con blanqueo de errores*/

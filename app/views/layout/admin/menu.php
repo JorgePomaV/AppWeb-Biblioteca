@@ -1,13 +1,12 @@
-<!-- Sidebar -->
+<!-- views/layout/admin/menu.php -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <div class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+    <div class="sidebar-brand d-flex align-items-center justify-content-center">
         <div>
-            <!-- <i class="fas fa-laugh-wink"></i> -->
-            <img class="avatar" src="<?php echo RUTA_AVATAR.$_SESSION['avatar'];?>" alt="">
+            <img class="avatar" src="<?php echo RUTA_AVATAR . $_SESSION['avatar']; ?>" alt="Avatar">
         </div>
-        <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['nombre'];?></div>
+        <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['nombre']; ?></div>
     </div>
 
     <!-- Divider -->
@@ -15,57 +14,60 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="<?php echo RUTA_URL; ?>/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Dashboard</span>
+        </a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-    <div class="sidebar-heading">
-        Tareas
-    </div>
-    <!-- Nav Item - Charts -->
+    <div class="sidebar-heading">Gestión de Biblioteca</div>
+
+    <!-- Nav Item - Libros -->
     <li class="nav-item">
-        <a class="nav-link" href="<?php echo RUTA_URL;?>/TareaController/NuevaTarea">
-            <i class="fas fa-plus-circle"></i>
-            <span>Nueva Tarea</span></a>
-    </li>
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-            aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-list"></i>
-            <span>Listados</span>
+        <a class="nav-link" href="<?php echo RUTA_URL; ?>/libros">
+            <i class="fas fa-book"></i>
+            <span>Lista de Libros</span>
         </a>
-        
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Tipos</h6>
-                <a class="collapse-item " style="color:violet;" href="<?php echo RUTA_URL;?>/TareaController/listarTarea/0"><b>All</b></a>
-                <?php foreach ($data['estados'] as $est):?>
-                <a class="collapse-item" style="color:<?php echo $est->color;?> "href="<?php echo RUTA_URL;?>/TareaController/listarTarea/<?php echo $est->id;?>"><b><?php echo $est->tipoEstado;?></b></a>
-               
-                <?php endforeach;?>
-            </div>
-        </div>
     </li>
- 
-  
+    
+    <!-- Nav Item - Agregar Libro -->
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo RUTA_URL; ?>/libro/crear">
+            <i class="fas fa-plus-circle"></i>
+            <span>Agregar Libro</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Categorías -->
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo RUTA_URL; ?>/categorias">
+            <i class="fas fa-list"></i>
+            <span>Categorías</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Usuarios -->
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo RUTA_URL; ?>/usuarios">
+            <i class="fas fa-user"></i>
+            <span>Usuarios</span>
+        </a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-
-
-  
-
-
-
- 
-
+    <!-- Logout Modal Trigger -->
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Cerrar Sesión</span>
+        </a>
+    </li>
 
 </ul>
 <!-- End of Sidebar -->
