@@ -4,7 +4,7 @@
 
 <div class="container">
     <?php 
-        $viewContent = RUTA_APP . '/views/layout/libros/content.php';
+        $viewContent = RUTA_APP . '/views/pages/libro/content.php';
         require_once $viewContent; 
     ?>
 </div>
