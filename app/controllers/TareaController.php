@@ -1,6 +1,7 @@
 <?php
     class TareaController extends BaseController{
-         
+         private $tareaModel;
+         private $estadoModel;
         public function __construct(){
             $this->tareaModel=$this->model('TareaModel');
             $this->estadoModel=$this->model('EstadoModel');
