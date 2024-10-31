@@ -18,7 +18,7 @@ class LibroController extends BaseController {
         $data = [
             'libros' => $this->libroModel->obtenerLibros(),
         ];
-        $this->view('layout/libros/index', $data);
+        $this->view('pages/libro/index', $data);
     }
 
     /* Muestra el formulario para crear un nuevo libro */
@@ -32,7 +32,7 @@ class LibroController extends BaseController {
             'usuario_id' => $_SESSION['id'],
             'error' => ''
         ];
-        $this->view('layout/libros/crear', $data);
+        $this->view('pages/libro/crear', $data);
     }
 
     /* Procesa el formulario de creación de un nuevo libro */
@@ -52,7 +52,7 @@ class LibroController extends BaseController {
             // Verifica campos obligatorios
             if (empty($data['titulo']) || empty($data['editorial']) || empty($data['añoEdicion']) || empty($data['cantidad'])) {
                 $data['error'] = '<div class="alert alert-danger">Por favor, complete todos los campos requeridos.</div>';
-                $this->view('layout/libros/crear', $data);
+                $this->view('pages/libro/crear', $data);
                 return;
             }
 
@@ -75,7 +75,7 @@ class LibroController extends BaseController {
             $data = [
                 'libro' => $libro,
             ];
-            $this->view('layout/libros/detalles', $data);
+            $this->view('pages/libro/detalles', $data);
         } else {
             die('Libro no encontrado');
         }
@@ -95,7 +95,7 @@ class LibroController extends BaseController {
                 'usuario_id' => $libro->usuario_id,
                 'error' => ''
             ];
-            $this->view('layout/libros/editar', $data);
+            $this->view('pages/libro/editar', $data);
         } else {
             die('Libro no encontrado');
         }
@@ -119,7 +119,7 @@ class LibroController extends BaseController {
             // Verifica campos obligatorios
             if (empty($data['titulo']) || empty($data['editorial']) || empty($data['añoEdicion']) || empty($data['cantidad'])) {
                 $data['error'] = '<div class="alert alert-danger">Por favor, complete todos los campos requeridos.</div>';
-                $this->view('layout/libros/editar', $data);
+                $this->view('pages/libro/editar', $data);
                 return;
             }
 
