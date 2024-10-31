@@ -28,9 +28,6 @@ class AuthController extends BaseController {
                 $_SESSION['nombre'] = $usuario->Nombre;
                 $_SESSION['avatar'] = $usuario->Avatar;
 
-                $data = [
-                    'libros' => $this->libroModel->obtenerTodos(), // Llama a los libros disponibles
-                ];
                 $this->view('pages/dashboard/dashboard', $data);
             } else {
                 $data = [
@@ -85,9 +82,10 @@ class AuthController extends BaseController {
                             'error_tipo' => '<div class="alert alert-danger" role="alert">
                                 El tipo de imagen debe ser jpg, jpeg o png.
                             </div>',
+                            'error_pass' =>'',
+                            'error_megas'=>'',
                         ];
                         $this->view('pages/auth/register', $data);
-                        return;
                     }
                 } else {
                     $data = [
@@ -96,7 +94,6 @@ class AuthController extends BaseController {
                         </div>',
                     ];
                     $this->view('pages/auth/register', $data);
-                    return;
                 }
             } else {
                 $avatar = 'img_default.png';
@@ -112,21 +109,28 @@ class AuthController extends BaseController {
                     'usuario' => $usuario,
                     'celular' => $celular,
                     'pass' => $pass,
+                    'pass2' => $pass2
                 ];
                 $auth = $this->authModel->buscar_por_mail($data);
                 $auth2 = $this->authModel->buscar_por_dni($data);
 
-                if (empty($auth)) {
-                    if (empty($auth2)) {
-                        if ($this->authModel->crear_usuario($data)) {
-                            $this->view('pages/auth/login');
-                        } else {
+                if (empty($auth)){
+                    if(empty($auth2)){
+                        if($this->authModel->crear_usuario($data)){//crear_usuario: retorna un bool
+                            $data = [
+                                'error_login'=>'',
+                            ];
+                            //redirige al usuario a la vista de inicio de sesión. Si falla, detiene la ejecución y muestra un error.
+                            $this->view('pages/auth/login',$data);
+                        }else{
+                            //La función die() en PHP se utiliza para detener la ejecución del script inmediatamente. Cuando se llama a die(), el programa termina en ese punto, y opcionalmente puedes enviar un mensaje de salida.
                             die("NO SE PUDO CREAR EL USUARIO");
                         }
-                    } else {
+                    }else{
                         die("Ya existe una cuenta creada con ese dni");
                     }
-                } else {
+                    
+                }else{
                     die("Ya existe una cuenta creada con ese email");
                 }
             } else {
@@ -134,6 +138,8 @@ class AuthController extends BaseController {
                     'error_pass' => '<div class="alert alert-danger" role="alert">
                         Las contraseñas no coinciden.
                     </div>',
+                    'error_tipo' =>'',
+                    'error_megas'=>'',
                 ];
                 $this->view('pages/auth/register', $data);
             }
@@ -159,9 +165,10 @@ class AuthController extends BaseController {
             include(RUTA_APP . "/mails/mail_pass.php");
         } else {
             $data = [
-                "error_mail" => "<div class='alert alert-danger' role='alert'>
-                    No es un email válido.
-                </div>",
+                "error_mail"=> "<div class='alert alert-danger' role='alert'>
+                            <p class = 'text-center'>No es un email válido.</p>
+                        </div>",
+                "mail"=>'',
             ];
             $this->view('pages/auth/forgot-password', $data);
         }
@@ -184,16 +191,20 @@ class AuthController extends BaseController {
         
         if ($passNueva != $passNueva2) {
             $data = [
-                'error_pass' => "<div class='alert alert-danger' role='alert'>
-                    Las contraseñas no coinciden.
+                'mail' => '',
+                    'error_mail'=>'',
+                    'error_pass'=> "<div class='alert alert-danger' role='alert'>
+                    <p class = 'text-center'>Las contraseñas no coinciden.</p>
                 </div>",
             ];
             $this->view('pages/auth/updated-password', $data);
         } else {
             if ($this->authModel->change_pass($passNueva, $email)) {
                 $data = [
-                    'error_pass' => "<div class='alert alert-success' role='alert'>
-                        La contraseña fue actualizada.
+                    'mail' => '',
+                    'error_mail'=>'',
+                    'error_pass'=> "<div class='alert alert-success' role='alert'>
+                    <p class = 'text-center'>La contraseña fue actualizada</p>
                     </div>",
                 ];
                 $this->view('pages/auth/updated-password', $data);
