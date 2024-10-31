@@ -14,4 +14,17 @@
 </head>
 
 <body id="page-top">
-   
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand col-md-3 col-lg-2 me-3 px-3" href="#">UNLZ Biblioteca</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="col-md-6">
+        <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="navbar-nav ms-auto">
+        <div class="nav-item text-nowrap">
+            <a class="nav-link px-3" href="#">Sign out</a>
+        </div>
+        </div>
+    </header>
