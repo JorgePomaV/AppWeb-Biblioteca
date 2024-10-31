@@ -34,7 +34,7 @@ class LibroController extends BaseController {
 
     // Crear libro
     public function crear() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = $this->validarDatos($_POST);
             $data['vista'] = 'crear';
             $data['action'] = 'crear';
