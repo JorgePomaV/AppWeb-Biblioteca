@@ -11,9 +11,9 @@ class LibroController extends BaseController {
         try {
             $libros = $this->libroModel->obtenerTodos();
             $data = [
-                'libro' => $libros,
+                'libros' => $libros,
                 'vista' => 'index',
-                'action' => 'index' // Agregar esta línea
+                'action' => 'index'
             ];
             $this->view('pages/libro/layout', $data);
         } catch (Exception $e) {
@@ -21,18 +21,18 @@ class LibroController extends BaseController {
             $data = [
                 'error' => "Hubo un error al obtener los libros.",
                 'vista' => 'index',
-                'action' => 'index' // Agregar esta línea
+                'action' => 'index'
             ];
             $this->view('pages/libro/layout', $data);
         }
     }
 
-    // Mostrar formulario de creación de libros
+    // Crear libro
     public function crear() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $this->validarDatos($_POST);
             $data['vista'] = 'crear';
-            $data['action'] = 'crear'; // Agregar esta línea
+            $data['action'] = 'crear';
             if ($data['error']) {
                 $this->view('pages/libro/layout', $data);
             } else {
@@ -46,19 +46,19 @@ class LibroController extends BaseController {
         } else {
             $data = [
                 'vista' => 'crear',
-                'action' => 'crear' // Agregar esta línea
+                'action' => 'crear'
             ];
             $this->view('pages/libro/layout', $data);
         }
     }
 
-    // Actualizar un libro
+    // Actualizar libro
     public function actualizar($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $this->validarDatos($_POST);
-            $data['vista'] = 'editar';
             $data['libro'] = $this->libroModel->obtenerPorId($id);
-            $data['action'] = 'editar'; // Agregar esta línea
+            $data['vista'] = 'editar';
+            $data['action'] = 'editar';
             if ($data['error']) {
                 $this->view('pages/libro/layout', $data);
             } else {
@@ -73,23 +73,23 @@ class LibroController extends BaseController {
             $data = [
                 'libro' => $this->libroModel->obtenerPorId($id),
                 'vista' => 'editar',
-                'action' => 'editar' // Agregar esta línea
+                'action' => 'editar'
             ];
             $this->view('pages/libro/layout', $data);
         }
     }
 
-    // Ver detalles de un libro
+    // Detalles del libro
     public function detalles($id) {
         $data = [
             'libro' => $this->libroModel->obtenerPorId($id),
             'vista' => 'detalles',
-            'action' => 'detalle' // Agregar esta línea
+            'action' => 'detalle'
         ];
         $this->view('pages/libro/layout', $data);
     }
 
-    // Eliminar un libro
+    // Eliminar libro
     public function eliminar($id) {
         if ($this->libroModel->eliminar($id)) {
             $this->redireccionar('/libro');
@@ -97,8 +97,8 @@ class LibroController extends BaseController {
             $data = [
                 'error' => "Hubo un error al eliminar el libro.",
                 'libros' => $this->libroModel->obtenerTodos(),
-                'vista' => 'eliminar',
-                'action' => 'eliminar' // Agregar esta línea
+                'vista' => 'index',
+                'action' => 'index'
             ];
             $this->view('pages/libro/layout', $data);
         }
