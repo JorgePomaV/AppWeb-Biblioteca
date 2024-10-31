@@ -1,5 +1,8 @@
 <!-- views/pages/libro/content.php -->
-<?php if ($data['action'] == 'index'): ?>
+<?php
+$action = isset($data['action']) ? $data['action'] : 'index'; // Usar 'index' como valor predeterminado
+
+if ($action == 'index'): ?>
     <h2>Listado de Libros</h2>
     <a href="<?php echo RUTA_URL; ?>/libro/crear" class="btn btn-primary">Agregar Libro</a>
     <table class="table table-bordered">
@@ -39,7 +42,7 @@
         </tbody>
     </table>
 
-<?php elseif ($data['action'] == 'crear'): ?>
+<?php elseif ($action == 'crear'): ?>
     <h2>Agregar Nuevo Libro</h2>
     <form action="<?php echo RUTA_URL; ?>/libro/crear" method="post">
         <label for="Titulo">Título:</label>
@@ -60,7 +63,7 @@
         <button type="submit">Guardar Libro</button>
     </form>
 
-<?php elseif ($data['action'] == 'detalle'): ?>
+<?php elseif ($action == 'detalle'): ?>
     <h2>Detalle del Libro</h2>
     <p><strong>Título:</strong> <?php echo $data['libro']->Titulo; ?></p>
     <p><strong>Editorial:</strong> <?php echo $data['libro']->Editorial; ?></p>
@@ -69,7 +72,7 @@
     <p><strong>Categoría ID:</strong> <?php echo $data['libro']->categoria_id; ?></p>
     <a href="<?php echo RUTA_URL; ?>/libro" class="btn btn-primary">Volver</a>
 
-<?php elseif ($data['action'] == 'editar'): ?>
+<?php elseif ($action == 'editar'): ?>
     <h2>Editar Libro</h2>
     <form action="<?php echo RUTA_URL; ?>/libro/editar/<?php echo $data['libro']->id_libro; ?>" method="post">
         <label for="Titulo">Título:</label>
@@ -90,7 +93,7 @@
         <button type="submit">Actualizar Libro</button>
     </form>
 
-<?php elseif ($data['action'] == 'eliminar'): ?>
+<?php elseif ($action == 'eliminar'): ?>
     <h2>Eliminar Libro</h2>
     <p>¿Estás seguro de que deseas eliminar el libro "<?php echo $data['libro']->Titulo; ?>"?</p>
     <form action="<?php echo RUTA_URL; ?>/libro/eliminar/<?php echo $data['libro']->id_libro; ?>" method="post">
