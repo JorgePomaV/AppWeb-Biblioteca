@@ -29,7 +29,7 @@ class AuthController extends BaseController {
                 $_SESSION['avatar'] = $usuario->Avatar;
 
                 $data = [
-                    'libros' => $this->libroModel->obtenerLibros(), // Llama a los libros disponibles
+                    'libros' => $this->libroModel->obtenerTodos(), // Llama a los libros disponibles
                 ];
                 $this->view('pages/dashboard/dashboard', $data);
             } else {
