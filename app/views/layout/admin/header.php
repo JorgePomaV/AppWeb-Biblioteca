@@ -24,7 +24,9 @@
         </div>
         <div class="navbar-nav ms-auto">
         <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Sign out</a>
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+                <span>Cerrar Sesión</span>
+            </a>
         </div>
         </div>
     </header>
