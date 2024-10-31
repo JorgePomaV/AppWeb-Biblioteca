@@ -3,126 +3,146 @@ class LibroController extends BaseController {
     private $libroModel;
 
     public function __construct() {
+        // Carga el modelo de libro
         $this->libroModel = $this->model('LibroModel');
+        
+        // Verifica que el usuario esté autenticado
+        if (!isset($_SESSION['id'])) {
+            header('Location: ' . RUTA_URL . '/auth/login');
+            exit;
+        }
     }
 
-    // Listar todos los libros
+    /* Muestra la vista index de libros */
     public function index() {
-        try {
-            $libros = $this->libroModel->obtenerTodos();
-            $data = [
-                'libros' => $libros,
-                'vista' => 'index',
-                'action' => 'index'
-            ];
-            $this->view('pages/libro/layout', $data);
-        } catch (Exception $e) {
-            error_log("Error en index: " . $e->getMessage());
-            $data = [
-                'error' => "Hubo un error al obtener los libros.",
-                'vista' => 'index',
-                'action' => 'index'
-            ];
-            $this->view('pages/libro/layout', $data);
-        }
-    }
-
-    // Crear libro
-    public function crear() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = $this->validarDatos($_POST);
-            $data['vista'] = 'crear';
-            $data['action'] = 'crear';
-            if ($data['error']) {
-                $this->view('pages/libro/layout', $data);
-            } else {
-                if ($this->libroModel->crear($data)) {
-                    $this->redireccionar('/libro');
-                } else {
-                    $data['error'] = "Hubo un error al crear el libro. Inténtalo de nuevo.";
-                    $this->view('pages/libro/layout', $data);
-                }
-            }
-        } else {
-            $data = [
-                'vista' => 'crear',
-                'action' => 'crear'
-            ];
-            $this->view('pages/libro/layout', $data);
-        }
-    }
-
-    // Actualizar libro
-    public function actualizar($id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = $this->validarDatos($_POST);
-            $data['libro'] = $this->libroModel->obtenerPorId($id);
-            $data['vista'] = 'editar';
-            $data['action'] = 'editar';
-            if ($data['error']) {
-                $this->view('pages/libro/layout', $data);
-            } else {
-                if ($this->libroModel->actualizar($id, $data)) {
-                    $this->redireccionar('/libro');
-                } else {
-                    $data['error'] = "Hubo un error al actualizar el libro.";
-                    $this->view('pages/libro/layout', $data);
-                }
-            }
-        } else {
-            $data = [
-                'libro' => $this->libroModel->obtenerPorId($id),
-                'vista' => 'editar',
-                'action' => 'editar'
-            ];
-            $this->view('pages/libro/layout', $data);
-        }
-    }
-
-    // Detalles del libro
-    public function detalles($id) {
         $data = [
-            'libro' => $this->libroModel->obtenerPorId($id),
-            'vista' => 'detalles',
-            'action' => 'detalle'
+            'libros' => $this->libroModel->obtenerLibros(),
         ];
-        $this->view('pages/libro/layout', $data);
+        $this->view('layout/libros/index', $data);
     }
 
-    // Eliminar libro
-    public function eliminar($id) {
-        if ($this->libroModel->eliminar($id)) {
-            $this->redireccionar('/libro');
-        } else {
-            $data = [
-                'error' => "Hubo un error al eliminar el libro.",
-                'libros' => $this->libroModel->obtenerTodos(),
-                'vista' => 'index',
-                'action' => 'index'
-            ];
-            $this->view('pages/libro/layout', $data);
-        }
-    }
-
-    // Redirección
-    private function redireccionar($url) {
-        header("Location: " . RUTA_URL . $url);
-        exit;
-    }
-
-    // Validación de datos
-    private function validarDatos($datos) {
-        $result = [
-            'Titulo' => trim($datos['Titulo']),
-            'Editorial' => trim($datos['Editorial']),
-            'AñoEdicion' => trim($datos['AñoEdicion']),
-            'Cantidad' => trim($datos['Cantidad']),
-            'categoria_id' => trim($datos['categoria_id']),
+    /* Muestra el formulario para crear un nuevo libro */
+    public function crear() {
+        $data = [
+            'titulo' => '',
+            'editorial' => '',
+            'añoEdicion' => '',
+            'cantidad' => '',
+            'categoria_id' => '',
+            'usuario_id' => $_SESSION['id'],
             'error' => ''
         ];
-        if (empty($result['Titulo']) || empty($result['Editorial']) || empty($result['AñoEdicion'])) {
-            $result['error'] = "Por favor, completa todos los campos requeridos.";
+        $this->view('layout/libros/crear', $data);
+    }
+
+    /* Procesa el formulario de creación de un nuevo libro */
+    public function guardar() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanear y asignar datos del formulario
+            $data = [
+                'titulo' => htmlspecialchars(trim($_POST['titulo'])),
+                'editorial' => htmlspecialchars(trim($_POST['editorial'])),
+                'añoEdicion' => htmlspecialchars(trim($_POST['añoEdicion'])),
+                'cantidad' => htmlspecialchars(trim($_POST['cantidad'])),
+                'categoria_id' => htmlspecialchars(trim($_POST['categoria_id'])),
+                'usuario_id' => $_SESSION['id'],
+                'error' => ''
+            ];
+
+            // Verifica campos obligatorios
+            if (empty($data['titulo']) || empty($data['editorial']) || empty($data['añoEdicion']) || empty($data['cantidad'])) {
+                $data['error'] = '<div class="alert alert-danger">Por favor, complete todos los campos requeridos.</div>';
+                $this->view('layout/libros/crear', $data);
+                return;
+            }
+
+            // Intenta guardar el libro
+            if ($this->libroModel->agregarLibro($data)) {
+                header('Location: ' . RUTA_URL . '/libro/index');
+                exit;
+            } else {
+                die('Error al guardar el libro');
+            }
+        } else {
+            $this->crear();
         }
-        return $result;
+    }
+
+    /* Muestra los detalles de un libro */
+    public function detalles($id) {
+        $libro = $this->libroModel->obtenerLibroPorId($id);
+        if ($libro) {
+            $data = [
+                'libro' => $libro,
+            ];
+            $this->view('layout/libros/detalles', $data);
+        } else {
+            die('Libro no encontrado');
+        }
+    }
+
+    /* Muestra el formulario de edición de un libro */
+    public function editar($id) {
+        $libro = $this->libroModel->obtenerLibroPorId($id);
+        if ($libro) {
+            $data = [
+                'id_libro' => $libro->id_libro,
+                'titulo' => $libro->Titulo,
+                'editorial' => $libro->Editorial,
+                'añoEdicion' => $libro->AñoEdicion,
+                'cantidad' => $libro->Cantidad,
+                'categoria_id' => $libro->categoria_id,
+                'usuario_id' => $libro->usuario_id,
+                'error' => ''
+            ];
+            $this->view('layout/libros/editar', $data);
+        } else {
+            die('Libro no encontrado');
+        }
+    }
+
+    /* Procesa la actualización de un libro */
+    public function actualizar($id) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanear y asignar datos del formulario
+            $data = [
+                'id_libro' => $id,
+                'titulo' => htmlspecialchars(trim($_POST['titulo'])),
+                'editorial' => htmlspecialchars(trim($_POST['editorial'])),
+                'añoEdicion' => htmlspecialchars(trim($_POST['añoEdicion'])),
+                'cantidad' => htmlspecialchars(trim($_POST['cantidad'])),
+                'categoria_id' => htmlspecialchars(trim($_POST['categoria_id'])),
+                'usuario_id' => $_SESSION['id'],
+                'error' => ''
+            ];
+
+            // Verifica campos obligatorios
+            if (empty($data['titulo']) || empty($data['editorial']) || empty($data['añoEdicion']) || empty($data['cantidad'])) {
+                $data['error'] = '<div class="alert alert-danger">Por favor, complete todos los campos requeridos.</div>';
+                $this->view('layout/libros/editar', $data);
+                return;
+            }
+
+            // Intenta actualizar el libro
+            if ($this->libroModel->actualizarLibro($data)) {
+                header('Location: ' . RUTA_URL . '/libro/index');
+                exit;
+            } else {
+                die('Error al actualizar el libro');
+            }
+        } else {
+            $this->editar($id);
+        }
+    }
+
+    /* Elimina un libro */
+    public function eliminar($id) {
+        if ($this->libroModel->eliminarLibro($id)) {
+            header('Location: ' . RUTA_URL . '/libro/index');
+            exit;
+        } else {
+            die('Error al eliminar el libro');
+        }
     }
 }
+?>
