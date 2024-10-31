@@ -32,8 +32,8 @@ class libroModel {
     // Crear un nuevo libro
     public function crear($datos) {
         try {
-            $this->db->query('INSERT INTO libro (Titulo, Editorial, AñoEdicion, Cantidad, categoria_id, usuario_id) 
-                              VALUES (:Titulo, :Editorial, :AñoEdicion, :Cantidad, :categoria_id, :usuario_id)');
+            $this->db->query('INSERT INTO libro (Titulo, Editorial, AñoEdicion, Cantidad, categoria_id) 
+                              VALUES (:Titulo, :Editorial, :AñoEdicion, :Cantidad, :categoria_id)');
             $this->bindDatos($datos);
             return $this->db->execute();
         } catch (Exception $e) {
@@ -46,7 +46,7 @@ class libroModel {
     public function actualizar($id, $datos) {
         try {
             $this->db->query('UPDATE libro SET Titulo = :Titulo, Editorial = :Editorial, AñoEdicion = :AñoEdicion, Cantidad = :Cantidad, 
-                              categoria_id = :categoria_id, usuario_id = :usuario_id WHERE id_libro = :id');
+                              categoria_id = :categoria_id, WHERE id_libro = :id');
             $this->bindDatos($datos);
             $this->db->bind(':id', $id);
             return $this->db->execute();
@@ -75,6 +75,5 @@ class libroModel {
         $this->db->bind(':AñoEdicion', $datos['AñoEdicion']);
         $this->db->bind(':Cantidad', $datos['Cantidad']);
         $this->db->bind(':categoria_id', $datos['categoria_id']);
-        $this->db->bind(':usuario_id', $datos['usuario_id']);
     }
 }

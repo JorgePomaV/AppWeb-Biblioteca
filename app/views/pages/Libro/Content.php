@@ -15,12 +15,12 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($data['libros'])): ?>
+            <?php if (empty($data['libro'])): ?>
                 <tr>
                     <td colspan="8">No hay libros disponibles.</td>
                 </tr>
             <?php else: ?>
-                <?php foreach ($data['libros'] as $libro): ?>
+                <?php foreach ($data['libro'] as $libro): ?>
                     <tr>
                         <td><?php echo $libro->id_libro; ?></td>
                         <td><?php echo $libro->Titulo; ?></td>

@@ -11,7 +11,7 @@ class LibroController extends BaseController {
         try {
             $libros = $this->libroModel->obtenerTodos();
             $data = [
-                'libros' => $libros,
+                'libro' => $libros,
                 'vista' => 'index',
                 'action' => 'index' // Agregar esta línea
             ];
@@ -37,7 +37,7 @@ class LibroController extends BaseController {
                 $this->view('pages/libro/layout', $data);
             } else {
                 if ($this->libroModel->crear($data)) {
-                    $this->redireccionar('/libros');
+                    $this->redireccionar('/libro');
                 } else {
                     $data['error'] = "Hubo un error al crear el libro. Inténtalo de nuevo.";
                     $this->view('pages/libro/layout', $data);
@@ -63,7 +63,7 @@ class LibroController extends BaseController {
                 $this->view('pages/libro/layout', $data);
             } else {
                 if ($this->libroModel->actualizar($id, $data)) {
-                    $this->redireccionar('/libros');
+                    $this->redireccionar('/libro');
                 } else {
                     $data['error'] = "Hubo un error al actualizar el libro.";
                     $this->view('pages/libro/layout', $data);
@@ -92,7 +92,7 @@ class LibroController extends BaseController {
     // Eliminar un libro
     public function eliminar($id) {
         if ($this->libroModel->eliminar($id)) {
-            $this->redireccionar('/libros');
+            $this->redireccionar('/libro');
         } else {
             $data = [
                 'error' => "Hubo un error al eliminar el libro.",
@@ -118,7 +118,6 @@ class LibroController extends BaseController {
             'AñoEdicion' => trim($datos['AñoEdicion']),
             'Cantidad' => trim($datos['Cantidad']),
             'categoria_id' => trim($datos['categoria_id']),
-            'usuario_id' => trim($datos['usuario_id']),
             'error' => ''
         ];
         if (empty($result['Titulo']) || empty($result['Editorial']) || empty($result['AñoEdicion'])) {
