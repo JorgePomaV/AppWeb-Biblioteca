@@ -4,8 +4,8 @@
 
 <div class="container">
     <?php 
-        $viewContent = RUTA_APP . '/views/pages/libro/content.php';
-        require_once $viewContent; 
+        // La variable `viewContent` se define en el controlador, y aquí carga la vista específica.
+        require_once RUTA_APP . "/views/pages/libro/{$data['viewContent']}.php"; 
     ?>
 </div>
 
