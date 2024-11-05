@@ -3,7 +3,7 @@
 
 <div class="container">
     <h2>Listado de Libros</h2>
-    <a href="<?php echo RUTA_URL; ?>/libro/crear" class="btn btn-primary">Agregar Libro</a>
+    <a href="<?php echo RUTA_URL; ?>/libro/crearLibro" class="btn btn-primary">Agregar Libro</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -17,12 +17,12 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($data['libros'])): ?>
+            <?php if (empty($data['libro'])): ?>
                 <tr>
                     <td colspan="8">No hay libros disponibles.</td>
                 </tr>
             <?php else: ?>
-                <?php foreach ($data['libros'] as $libro): ?>
+                <?php foreach ($data['libro'] as $libro): ?>
                     <tr>
                         <td><?php echo $libro->id_libro; ?></td>
                         <td><?php echo $libro->Titulo; ?></td>
