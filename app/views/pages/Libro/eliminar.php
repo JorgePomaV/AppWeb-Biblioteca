@@ -1,6 +1,3 @@
- <?php require RUTA_APP . '/views/layout/admin/header.php'; ?>
-<?php require RUTA_APP . '/views/layout/admin/menu.php'; ?>
-
 <div class="container">
     <h2>Eliminar Libro</h2>
     <p>¿Estás seguro de que deseas eliminar el libro "<?php echo $data['libro']->Titulo; ?>"?</p>
@@ -9,5 +6,3 @@
     </form>
     <a href="<?php echo RUTA_URL; ?>/libro" class="btn btn-primary">Cancelar</a>
 </div>
-
-<?php require RUTA_APP . '/views/layout/admin/footer.php'; ?>

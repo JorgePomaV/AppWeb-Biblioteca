@@ -1,6 +1,3 @@
-<?php require RUTA_APP . '/views/layout/admin/header.php'; ?>
-<?php require RUTA_APP . '/views/layout/admin/menu.php'; ?>
-
 <div class="container">
     <h2>Editar Libro</h2>
     <form action="<?php echo RUTA_URL; ?>/libro/editar/<?php echo $data['libro']->id_libro; ?>" method="post">
@@ -22,5 +19,3 @@
         <button type="submit">Actualizar Libro</button>
     </form>
 </div>
-
-<?php require RUTA_APP . '/views/layout/admin/footer.php'; ?>

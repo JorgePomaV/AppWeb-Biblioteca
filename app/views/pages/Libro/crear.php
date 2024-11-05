@@ -1,4 +1,3 @@
-
 <div class="container">
     <h2>Agregar Nuevo Libro</h2>
     <form action="<?php echo RUTA_URL; ?>/libro/crear" method="post">
