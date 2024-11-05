@@ -1,5 +1,3 @@
-<?php require RUTA_APP . '/views/layout/admin/header.php'; ?>
-<?php require RUTA_APP . '/views/layout/admin/menu.php'; ?>
 
 <div class="container">
     <h2>Agregar Nuevo Libro</h2>
@@ -22,5 +20,3 @@
         <button type="submit">Guardar Libro</button>
     </form>
 </div>
-
-<?php require RUTA_APP . '/views/layout/admin/footer.php'; ?>
