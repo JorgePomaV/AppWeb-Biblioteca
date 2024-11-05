@@ -46,7 +46,7 @@ class LibroController extends BaseController {
                     $this->redireccionar('/libro/indexLibro');
                 } else {
                     $data['error'] = "Hubo un problema al agregar el libro";
-                    $this->view('pages/libro/layout', $data);
+                    $this->view('pages/dashboard/dashboard', $data);
                 }
             }
         } else {
