@@ -1,15 +1,15 @@
-<?php require RUTA_APP . "/views/layout/admin/header.php";?>
+<?php require RUTA_APP . "/views/layout/admin/header.php"; ?>
 
 <!-- Page Wrapper -->
-<div id="wrapper">
+<div id="wrapper" class="d-flex">
 
-<?php require RUTA_APP . "/views/layout/admin/menu.php";?>
+    <?php require RUTA_APP . "/views/layout/admin/menu.php"; ?>
     
-<!-- Content Wrapper -->
-<div class="d-flex flex-column flex-grow-1">
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column flex-grow-1">
 
-     <!-- Main Content -->
-     <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <!-- Main Content -->
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Listado de Libros</h1>
                 <a href="<?php echo RUTA_URL; ?>/LibroController/crear" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar Libro</a>
@@ -17,7 +17,6 @@
 
             <!-- Content Row -->
             <div class="row">
-                <!-- Generación dinámica de tarjetas -->
                 <?php if (!empty($data['libro'])): ?>
                     <?php foreach ($data['libro'] as $libro): ?>
                         <div class="col-md-4 mb-4">
@@ -49,5 +48,5 @@
         <!-- End of Main Content -->
     </div>
 </div>
-    
-<?php require RUTA_APP . "/views/layout/admin/footer.php";?>
+
+<?php require RUTA_APP . "/views/layout/admin/footer.php"; ?>
