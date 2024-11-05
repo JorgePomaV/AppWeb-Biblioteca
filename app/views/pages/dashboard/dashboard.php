@@ -43,9 +43,7 @@
                     <h4 class="text-secondary text-center">NO HAY LIBROS CARGADOS</h4>
                 <?php endif; ?>
             </div>
-            <!-- End Content Row -->
         </main>
-        <!-- End of Main Content -->
     </div>
 </div>
 

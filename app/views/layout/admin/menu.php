@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo RUTA_URL; ?>/libro/crearLibro">
+                        <a class="nav-link" href="<?php echo RUTA_URL; ?>/LibroController/crear">
                             <i class="fas fa-plus-circle"></i>
                             <span>Agregar Libro</span>
                         </a>
