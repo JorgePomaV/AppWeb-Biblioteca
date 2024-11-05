@@ -27,13 +27,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo RUTA_URL; ?>/libros">
+                        <a class="nav-link" href="<?php echo RUTA_URL; ?>/libro">
                             <i class="fas fa-book"></i>
                             <span>Lista de Libros</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo RUTA_URL; ?>/libro/crear">
+                        <a class="nav-link" href="<?php echo RUTA_URL; ?>/libro/crearLibro">
                             <i class="fas fa-plus-circle"></i>
                             <span>Agregar Libro</span>
                         </a>

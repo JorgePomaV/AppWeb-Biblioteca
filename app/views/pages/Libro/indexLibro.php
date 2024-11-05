@@ -31,9 +31,9 @@
                         <td><?php echo $libro->Cantidad; ?></td>
                         <td><?php echo $libro->categoria_id; ?></td>
                         <td>
-                            <a href="<?php echo RUTA_URL; ?>/libro/detalles/<?php echo $libro->id_libro; ?>">Detalles</a> |
-                            <a href="<?php echo RUTA_URL; ?>/libro/editar/<?php echo $libro->id_libro; ?>">Editar</a> |
-                            <a href="<?php echo RUTA_URL; ?>/libro/eliminar/<?php echo $libro->id_libro; ?>" onclick="return confirm('¿Seguro que deseas eliminar este libro?');">Eliminar</a>
+                            <a href="<?php echo RUTA_URL; ?>/libro/detallesLibro/<?php echo $libro->id_libro; ?>">Detalles</a> |
+                            <a href="<?php echo RUTA_URL; ?>/libro/editarLibro/<?php echo $libro->id_libro; ?>">Editar</a> |
+                            <a href="<?php echo RUTA_URL; ?>/libro/eliminarLibro/<?php echo $libro->id_libro; ?>" onclick="return confirm('¿Seguro que deseas eliminar este libro?');">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Agregar Nuevo Libro</h2>
-    <form action="<?php echo RUTA_URL; ?>libro/crear" method="post">
+    <form action="<?php echo RUTA_URL; ?>/libro/crearLibro" method="post">
         <label for="Titulo">Título:</label>
         <input type="text" name="Titulo" required>
 

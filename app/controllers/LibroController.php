@@ -19,7 +19,7 @@ class LibroController extends BaseController {
             $libros = $this->libroModel->obtenerTodos();
             $data = [
                 'titulo' => 'Lista de Libros',
-                'viewContent' => 'index',
+                'viewContent' => 'indexLibro',
                 'libros' => $libros
             ];
             $this->view('pages/libro/layout', $data);
@@ -27,7 +27,7 @@ class LibroController extends BaseController {
             error_log("Error en index: " . $e->getMessage());
             $data = [
                 'error' => "Hubo un error al obtener los libros.",
-                'viewContent' => 'index'
+                'viewContent' => 'indexLibro'
             ];
             $this->view('pages/libro/layout', $data);
         }
@@ -37,13 +37,13 @@ class LibroController extends BaseController {
     public function crear() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $this->validarDatos($_POST);
-            $data['viewContent'] = 'crear';
+            $data['viewContent'] = 'crearLibro';
 
             if ($data['error']) {
                 $this->view('pages/libro/layout', $data);
             } else {
                 if ($this->libroModel->crearLibro($data)) {
-                    $this->redireccionar('/libro/index');
+                    $this->redireccionar('/libro/indexLibro');
                 } else {
                     $data['error'] = "Hubo un problema al agregar el libro";
                     $this->view('pages/libro/layout', $data);
@@ -52,7 +52,7 @@ class LibroController extends BaseController {
         } else {
             $data = [
                 'titulo' => 'Agregar Libro',
-                'viewContent' => 'crear'
+                'viewContent' => 'crearLibro'
             ];
             $this->view('pages/libro/layout', $data);
         }
@@ -63,13 +63,13 @@ class LibroController extends BaseController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $this->validarDatos($_POST);
             $data['id_libro'] = $id;
-            $data['viewContent'] = 'editar';
+            $data['viewContent'] = 'editarLibro';
 
             if ($data['error']) {
                 $this->view('pages/libro/layout', $data);
             } else {
                 if ($this->libroModel->actualizarLibro($data)) {
-                    $this->redireccionar('/libro/index');
+                    $this->redireccionar('/libro/indexLibro');
                 } else {
                     $data['error'] = "Hubo un problema al actualizar el libro.";
                     $this->view('pages/libro/layout', $data);
@@ -78,12 +78,12 @@ class LibroController extends BaseController {
         } else {
             $libro = $this->libroModel->obtenerLibroPorId($id);
             if (!$libro) {
-                $this->redireccionar('/libro/index');
+                $this->redireccionar('/libro/indexLibro');
             }
 
             $data = [
                 'titulo' => 'Editar Libro',
-                'viewContent' => 'editar',
+                'viewContent' => 'editarLibro',
                 'libro' => $libro
             ];
             $this->view('pages/libro/layout', $data);
@@ -94,12 +94,12 @@ class LibroController extends BaseController {
     public function detalles($id) {
         $libro = $this->libroModel->obtenerLibroPorId($id);
         if (!$libro) {
-            $this->redireccionar('/libro/index');
+            $this->redireccionar('/libro/indexLibro');
         }
 
         $data = [
             'titulo' => 'Detalles del Libro',
-            'viewContent' => 'detalles',
+            'viewContent' => 'detallesLibro',
             'libro' => $libro
         ];
         $this->view('pages/libro/layout', $data);
@@ -109,16 +109,16 @@ class LibroController extends BaseController {
     public function eliminar($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($this->libroModel->eliminarLibro($id)) {
-                $this->redireccionar('/libro/index');
+                $this->redireccionar('/libro/indexLibro');
             } else {
                 $data = [
                     'error' => "Hubo un problema al eliminar el libro.",
-                    'viewContent' => 'index'
+                    'viewContent' => 'indexLibro'
                 ];
                 $this->view('pages/libro/layout', $data);
             }
         } else {
-            $this->redireccionar('/libro/index');
+            $this->redireccionar('/libro/indexLibro');
         }
     }
 

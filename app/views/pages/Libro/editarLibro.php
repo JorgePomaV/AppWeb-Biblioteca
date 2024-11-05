@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Editar Libro</h2>
-    <form action="<?php echo RUTA_URL; ?>/libro/editar/<?php echo $data['libro']->id_libro; ?>" method="post">
+    <form action="<?php echo RUTA_URL; ?>/libro/editarLibro/<?php echo $data['libro']->id_libro; ?>" method="post">
         <label for="Titulo">Título:</label>
         <input type="text" name="Titulo" value="<?php echo $data['libro']->Titulo; ?>" required>
 
