@@ -1,11 +1,13 @@
 <?php
 class LibroController extends BaseController {
     private $libroModel;
+    private $categoriaModel;
 
     public function __construct() {
-        // Carga el modelo de libro
+        // Carga el modelo de libro y categoría
         $this->libroModel = $this->model('LibroModel');
-        
+        $this->categoriaModel = $this->model('CategoriaModel');
+
         // Verifica que el usuario esté autenticado
         if (!isset($_SESSION['id'])) {
             header('Location: ' . RUTA_URL . '/auth/login');
@@ -13,122 +15,107 @@ class LibroController extends BaseController {
         }
     }
 
-    // Método para mostrar la lista de libros
+    // Método para mostrar la lista de libros con sus categorías
     public function index() {
         try {
             $libros = $this->libroModel->obtenerTodos();
+            $categorias = $this->categoriaModel->obtenerCategorias();
             $data = [
                 'titulo' => 'Lista de Libros',
                 'viewContent' => 'indexLibro',
-                'libros' => $libros
+                'libros' => $libros,
+                'categorias' => $categorias
             ];
-            $this->view('pages/libro/layout', $data);
+            $this->view('pages/libros/layout', $data);
         } catch (Exception $e) {
             error_log("Error en index: " . $e->getMessage());
             $data = [
                 'error' => "Hubo un error al obtener los libros.",
                 'viewContent' => 'indexLibro'
             ];
-            $this->view('pages/libro/layout', $data);
+            $this->view('pages/libros/layout', $data);
         }
     }
 
-    // Método para mostrar el formulario de creación de un nuevo libro
+    // Método para crear un nuevo libro
     public function crear() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = $this->validarDatos($_POST);
             $data['viewContent'] = 'crearLibro';
 
             if ($data['error']) {
-                $this->view('pages/libro/layout', $data);
+                $this->view('pages/libros/layout', $data);
             } else {
                 if ($this->libroModel->crearLibro($data)) {
-                    $this->redireccionar('/libro/indexLibro');
+                    $this->redireccionar('/libros/indexLibro');
                 } else {
                     $data['error'] = "Hubo un problema al agregar el libro";
-                    $this->view('pages/libro/layout', $data);
+                    $this->view('pages/libros/layout', $data);
                 }
             }
         } else {
+            $categorias = $this->categoriaModel->obtenerCategorias();
             $data = [
                 'titulo' => 'Agregar Libro',
-                'viewContent' => 'crearLibro'
+                'viewContent' => 'crearLibro',
+                'categorias' => $categorias
             ];
-            $this->view('pages/libro/layout', $data);
+            $this->view('pages/libros/layout', $data);
         }
     }
 
-    // Método para mostrar el formulario de edición de un libro existente
+    // Método para editar un libro existente
     public function editar($id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = $this->validarDatos($_POST);
             $data['id_libro'] = $id;
             $data['viewContent'] = 'editarLibro';
 
             if ($data['error']) {
-                $this->view('pages/libro/layout', $data);
+                $this->view('pages/libros/layout', $data);
             } else {
                 if ($this->libroModel->actualizarLibro($data)) {
-                    $this->redireccionar('/libro/indexLibro');
+                    $this->redireccionar('/libros/indexLibro');
                 } else {
                     $data['error'] = "Hubo un problema al actualizar el libro.";
-                    $this->view('pages/libro/layout', $data);
+                    $this->view('pages/libros/layout', $data);
                 }
             }
         } else {
             $libro = $this->libroModel->obtenerLibroPorId($id);
+            $categorias = $this->categoriaModel->obtenerCategorias();
             if (!$libro) {
-                $this->redireccionar('/libro/indexLibro');
+                $this->redireccionar('/libros/indexLibro');
             }
 
             $data = [
                 'titulo' => 'Editar Libro',
                 'viewContent' => 'editarLibro',
-                'libro' => $libro
+                'libro' => $libro,
+                'categorias' => $categorias
             ];
-            $this->view('pages/libro/layout', $data);
+            $this->view('pages/libros/layout', $data);
         }
-    }
-
-    // Método para ver los detalles de un libro específico
-    public function detalles($id) {
-        $libro = $this->libroModel->obtenerLibroPorId($id);
-        if (!$libro) {
-            $this->redireccionar('/libro/indexLibro');
-        }
-
-        $data = [
-            'titulo' => 'Detalles del Libro',
-            'viewContent' => 'detallesLibro',
-            'libro' => $libro
-        ];
-        $this->view('pages/libro/layout', $data);
     }
 
     // Método para eliminar un libro
     public function eliminar($id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->libroModel->eliminarLibro($id)) {
-                $this->redireccionar('/libro/indexLibro');
+                $this->redireccionar('/libros/indexLibro');
             } else {
                 $data = [
                     'error' => "Hubo un problema al eliminar el libro.",
                     'viewContent' => 'indexLibro'
                 ];
-                $this->view('pages/libro/layout', $data);
+                $this->view('pages/libros/layout', $data);
             }
         } else {
-            $this->redireccionar('/libro/indexLibro');
+            $this->redireccionar('/libros/indexLibro');
         }
     }
 
-    // Redirección
-    private function redireccionar($url) {
-        header("Location: " . RUTA_URL . $url);
-        exit;
-    }
-
-    // Validación de datos
+    // Método para validar los datos de entrada
     private function validarDatos($datos) {
         $result = [
             'titulo' => trim($datos['titulo']),
@@ -138,11 +125,17 @@ class LibroController extends BaseController {
             'categoria_id' => trim($datos['categoria_id']),
             'error' => ''
         ];
-        
+
         if (empty($result['titulo']) || empty($result['editorial']) || empty($result['anioEdicion'])) {
             $result['error'] = "Por favor, completa todos los campos requeridos.";
         }
-        
+
         return $result;
+    }
+
+    // Método de redirección
+    private function redireccionar($url) {
+        header("Location: " . RUTA_URL . $url);
+        exit;
     }
 }
