@@ -26,14 +26,14 @@ class LibroController extends BaseController {
                 'libros' => $libros,
                 'categorias' => $categorias
             ];
-            $this->view('pages/libros/layout', $data);
+            $this->view('pages/libro/layout', $data);
         } catch (Exception $e) {
             error_log("Error en index: " . $e->getMessage());
             $data = [
                 'error' => "Hubo un error al obtener los libros.",
                 'viewContent' => 'indexLibro'
             ];
-            $this->view('pages/libros/layout', $data);
+            $this->view('pages/libro/layout', $data);
         }
     }
 
@@ -44,13 +44,13 @@ class LibroController extends BaseController {
             $data['viewContent'] = 'crearLibro';
 
             if ($data['error']) {
-                $this->view('pages/libros/layout', $data);
+                $this->view('pages/libro/layout', $data);
             } else {
                 if ($this->libroModel->crearLibro($data)) {
-                    $this->redireccionar('/libros/indexLibro');
+                    $this->redireccionar('/libro/indexLibro');
                 } else {
                     $data['error'] = "Hubo un problema al agregar el libro";
-                    $this->view('pages/libros/layout', $data);
+                    $this->view('pages/libro/layout', $data);
                 }
             }
         } else {
@@ -60,7 +60,7 @@ class LibroController extends BaseController {
                 'viewContent' => 'crearLibro',
                 'categorias' => $categorias
             ];
-            $this->view('pages/libros/layout', $data);
+            $this->view('pages/libro/layout', $data);
         }
     }
 
@@ -72,20 +72,20 @@ class LibroController extends BaseController {
             $data['viewContent'] = 'editarLibro';
 
             if ($data['error']) {
-                $this->view('pages/libros/layout', $data);
+                $this->view('pages/libro/layout', $data);
             } else {
                 if ($this->libroModel->actualizarLibro($data)) {
-                    $this->redireccionar('/libros/indexLibro');
+                    $this->redireccionar('/libro/indexLibro');
                 } else {
                     $data['error'] = "Hubo un problema al actualizar el libro.";
-                    $this->view('pages/libros/layout', $data);
+                    $this->view('pages/libro/layout', $data);
                 }
             }
         } else {
             $libro = $this->libroModel->obtenerLibroPorId($id);
             $categorias = $this->categoriaModel->obtenerCategorias();
             if (!$libro) {
-                $this->redireccionar('/libros/indexLibro');
+                $this->redireccionar('/libro/indexLibro');
             }
 
             $data = [
@@ -94,7 +94,7 @@ class LibroController extends BaseController {
                 'libro' => $libro,
                 'categorias' => $categorias
             ];
-            $this->view('pages/libros/layout', $data);
+            $this->view('pages/libro/layout', $data);
         }
     }
 
@@ -102,16 +102,16 @@ class LibroController extends BaseController {
     public function eliminar($id) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->libroModel->eliminarLibro($id)) {
-                $this->redireccionar('/libros/indexLibro');
+                $this->redireccionar('/libro/indexLibro');
             } else {
                 $data = [
                     'error' => "Hubo un problema al eliminar el libro.",
                     'viewContent' => 'indexLibro'
                 ];
-                $this->view('pages/libros/layout', $data);
+                $this->view('pages/libro/layout', $data);
             }
         } else {
-            $this->redireccionar('/libros/indexLibro');
+            $this->redireccionar('/libro/indexLibro');
         }
     }
 
