@@ -16,6 +16,7 @@
         <label for="categoria_id">Categoría ID:</label>
         <input type="number" name="categoria_id" value="<?php echo $data['libro']->categoria_id; ?>">
 
-        <button type="submit">Actualizar Libro</button>
+        <button type="submit" class="btn btn-primary">Actualizar Libro</button>
+        <a asp-action="indexLibro" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
