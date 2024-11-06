@@ -28,7 +28,8 @@ class AuthController extends BaseController {
                 $_SESSION['nombre'] = $usuario->Nombre;
                 $_SESSION['avatar'] = $usuario->Avatar;
 
-                $this->view('pages/dashboard/dashboard', $data);
+                header('Location: ' . RUTA_URL . '/dashboard');
+                exit;
             } else {
                 $data = [
                     'error_login' => '<div class="alert alert-danger" role="alert">
@@ -216,7 +217,8 @@ class AuthController extends BaseController {
     public function logout() {
         session_unset();
         session_destroy();
-        $this->view('pages/index');
+        header('Location: ' . RUTA_URL . '/');
+        exit;
     }
 }
 ?>
