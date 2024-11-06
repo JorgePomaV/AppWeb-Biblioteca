@@ -9,7 +9,7 @@ class CategoriaModel {
 
     // Obtener todas las categorías
     public function obtenerCategorias() {
-        $this->db->query("SELECT * FROM categoria ORDER BY nombre ASC"); // Ajusta el nombre de la tabla si es diferente
+        $this->db->query("SELECT * FROM categoria ORDER BY NombreCategoria ASC"); // Ajusta el nombre de la tabla si es diferente
         return $this->db->register();
     }
 
@@ -22,18 +22,16 @@ class CategoriaModel {
 
     // Crear una nueva categoría
     public function crearCategoria($data) {
-        $this->db->query("INSERT INTO categoria (nombre, descripcion) VALUES (:nombre, :descripcion)");
-        $this->db->bind(':nombre', $data['nombre']);
-        $this->db->bind(':descripcion', $data['descripcion']);
+        $this->db->query("INSERT INTO categoria (NombreCategoria) VALUES (:NombreCategoria)");
+        $this->db->bind(':nombre', $data['NombreCategoria']);
         
         return $this->db->execute();
     }
 
     // Actualizar una categoría existente
     public function actualizarCategoria($data) {
-        $this->db->query("UPDATE categoria SET nombre = :nombre, descripcion = :descripcion WHERE id_categoria = :id");
-        $this->db->bind(':nombre', $data['nombre']);
-        $this->db->bind(':descripcion', $data['descripcion']);
+        $this->db->query("UPDATE categoria SET NombreCategoria = :NombreCategoria WHERE id_categoria = :id");
+        $this->db->bind(':NombreCategoria', $data['NombreCategoria']);
         $this->db->bind(':id', $data['id_categoria']);
         
         return $this->db->execute();
