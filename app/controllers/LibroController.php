@@ -40,19 +40,30 @@ class LibroController extends BaseController {
     // Método para crear un nuevo libro
     public function crear() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $data = $this->validarDatos($_POST);
+           // $data = $this->validarDatos($_POST);
+           $data = [
+            'Titulo' => $_POST['titulo'],
+            'Editorial' => $_POST['editorial'],
+            'AnoEdicion' => $_POST['anioEdicion'],
+            'Cantidad' => $_POST['cantidad'],
+            'categoria_id' => $_POST['categoria_id'],
+            ];
             $data['viewContent'] = 'crearLibro';
 
-            if ($data['error']) {
+            /*if ($data['error']) {
                 $this->view('pages/libro/layout', $data);
-            } else {
-                if ($this->libroModel->crearLibro($data)) {
-                    $this->redireccionar('/libro/indexLibro');
+                //$this->view('pages/dashboard/dashboard',$data);
+            } else {*/
+                if ($this->libroModel->crear($data)) {
+                    /*$this->redireccionar('/libro/indexLibro');*/
+                    die("lo logramos!!");
+                    $this->view('pages/dashboard/dashboard',$data);
                 } else {
                     $data['error'] = "Hubo un problema al agregar el libro";
-                    $this->view('pages/libro/layout', $data);
+                    //$this->view('pages/libro/layout', $data);
+                    $this->view('pages/dashboard/dashboard',$data);
                 }
-            }
+            //}
         } else {
             $categorias = $this->categoriaModel->obtenerCategorias();
             $data = [
@@ -116,7 +127,7 @@ class LibroController extends BaseController {
     }
 
     // Método para validar los datos de entrada
-    private function validarDatos($datos) {
+   private function validarDatos($datos) {
         $result = [
             'titulo' => trim($datos['titulo']),
             'editorial' => trim($datos['editorial']),

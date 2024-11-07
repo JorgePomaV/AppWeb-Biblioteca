@@ -30,30 +30,56 @@ class libroModel {
     }
 
     // Crear un nuevo libro
-    public function crear($datos) {
-        try {
-            $this->db->query('INSERT INTO libro (Titulo, Editorial, AñoEdicion, Cantidad, categoria_id) 
-                              VALUES (:Titulo, :Editorial, :AñoEdicion, :Cantidad, :categoria_id)');
-            $this->bindDatos($datos);
-            return $this->db->execute();
-        } catch (Exception $e) {
-            error_log("Error en crear: " . $e->getMessage());
-            return false;
+    public function crear($data) {
+        //var_dump($data);die;
+      //  try {
+            $this->db->query("INSERT INTO libro (Titulo, Editorial, AnoEdicion, Cantidad, categoria_id, usuario_id) 
+                              VALUES (:Titulo, :Editorial, :AnoEdicion, :Cantidad, :categoria_id, :usuario_id)");
+            //$this->bindDatos($datos);
+            $this->db->bind('Titulo', $data['Titulo']);
+            $this->db->bind('Editorial', $data['Editorial']);
+            $this->db->bind('AnoEdicion', $data['AnoEdicion']);                  
+            $this->db->bind('Cantidad', $data['Cantidad']);
+            $this->db->bind('categoria_id', $data['categoria_id']);
+            $this->db->bind('usuario_id', null);
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    
+            // $this->db->execute();
+          //  return true;
+       //   echo $this->db->execute();
+      //  } catch (Exception $e) {
+      //      error_log("Error en crear: " . $e->getMessage());
+        //    return false;
+        //}
+      
         }
-    }
 
     // Actualizar un libro existente por su ID
     public function actualizar($id, $datos) {
-        try {
+    
             $this->db->query('UPDATE libro SET Titulo = :Titulo, Editorial = :Editorial, AñoEdicion = :AñoEdicion, Cantidad = :Cantidad, 
                               categoria_id = :categoria_id, WHERE id_libro = :id');
-            $this->bindDatos($datos);
+            //$this->bindDatos($datos);
+            $this->db->bind('Titulo', $datos['titulo']);
+            $this->db->bind('Editorial', $datos['editorial']);
+            $this->db->bind('AñoEdicion', $datos['anioEdicion']);                  
+            $this->db->bind('Cantidad', $datos['cantidad']);
+            $this->db->bind('categoria_id', $datos['categoria_id']);
             $this->db->bind(':id', $id);
-            return $this->db->execute();
+           /* return $this->db->execute();
         } catch (Exception $e) {
             error_log("Error en actualizar: " . $e->getMessage());
             return false;
-        }
+        }*/
+        if ($this->db->execute()) {
+			return true;
+		} else {
+			return false;
+		}
     }
 
     // Eliminar un libro por su ID
@@ -70,10 +96,10 @@ class libroModel {
 
     // Método para asignar los datos recibidos a los parámetros de la consulta
     private function bindDatos($datos) {
-        $this->db->bind(':Titulo', $datos['Titulo']);
-        $this->db->bind(':Editorial', $datos['Editorial']);
-        $this->db->bind(':AñoEdicion', $datos['AñoEdicion']);
-        $this->db->bind(':Cantidad', $datos['Cantidad']);
+        $this->db->bind(':Titulo', $datos['titulo']);
+        $this->db->bind(':Editorial', $datos['editorial']);
+        $this->db->bind(':AñoEdicion', $datos['anioEdicion']);
+        $this->db->bind(':Cantidad', $datos['cantidad']);
         $this->db->bind(':categoria_id', $datos['categoria_id']);
     }
 }
