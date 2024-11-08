@@ -76,6 +76,7 @@ class AuthController extends BaseController {
             if ($avatar != '') {
                 if ($image_size <= 10000000) {
                     if ($image_type == 'image/jpg' || $image_type == 'image/jpeg' || $image_type == 'image/png') {
+                       // se utiliza 'tmp_name' para acceder al archivo mientras está en su ubicación temporal, por ejemplo, para moverlo a una carpeta definitiva o para procesarlo.
                         move_uploaded_file($_FILES['avatar']['tmp_name'], $ubi . $avatar);
                     } else {
                         $data = [
